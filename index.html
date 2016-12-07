@@ -1,0 +1,233 @@
+<html>
+<head>
+<!-- 
+Originally created by /u/tollsjo for the /r/homelab community in December 2016
+License: Creative Commons CC BY-SA 4.0
+-->
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style>
+
+body {
+   font-family: Lato, arial, sans-serif;
+}
+
+#top {
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   background-color:#30333A;
+   top: 0;
+   left: 0;
+   color: white;
+   font-family: Lato, arial, sans-serif;
+   font-size: 42px;
+}
+
+
+div.dell {
+  width: 1.4cm;
+  height: 0.8cm;
+  background: linear-gradient(to bottom, #E0E0E0 50%, #000000 50%);
+  -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 80%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 80%);
+}
+
+div.delluppertext{
+  vertical-align: top;  
+  text-align: center;
+  padding-left: 0.1cm;
+  color: black;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+div.delllowertext{
+  vertical-align: bottom;
+  line-height: 0.4cm;
+  text-align: center;  
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 10px;
+}
+
+
+
+
+
+div.hp {
+  width: 1.2cm;
+  height: 0.9cm;
+}
+
+div.hptext1{
+  border-top: thin solid #000000;
+  line-height: 0.2cm;
+  text-align: center;
+  background-color: #ffffff;
+  color: black;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 5px;
+}
+
+div.hptext2{
+  line-height: 0.2cm;
+  text-align: center;
+  background-color: #8B008B;
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 5px;
+}
+
+div.hptext3{
+  line-height: 0.3cm;
+  text-align: center;
+  background-color: #000000;
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 10px;
+}
+
+div.hptext4{
+  line-height: 0.2cm;
+  text-align: center;
+  background-color: #000000;
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 4px;
+}
+
+</style>
+</head>
+<body>
+<div id="top">
+<img width="70px" height="70px" src="./reddit-snoo.jpg"/>
+Homelab caddy label maker
+</div>
+
+<h3>Print your own labels for drive caddies.</h3>
+<p>Fill out the form and print the page from the browser. Make sure to print in the original size. In Safari: Select "Print Backgrounds".</p>
+<p>#initfortheblinkenlights</p>
+
+<br/>
+<br/>
+
+Dell Gen11 (3.5in/2.5in) (14*8mm):
+<br/>
+
+Interface: <input type="text" class="dellinterface" value="SATA">
+Size/Speed: <input type="text" class="dellsize" value="500GB">
+<br/>
+<br/>
+ 
+<script>
+$( "input.dellinterface" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( "div.delluppertext" ).text( value );
+  })
+  .keyup();
+
+$( "input.dellsize" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( "div.delllowertext" ).text( value );
+  })
+  .keyup();
+</script>
+
+
+<table>
+  <tr>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td> 
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+  </tr>
+  <tr>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td> 
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+    <td><div class="dell"><div class="delluppertext">SATA</div><div class="delllowertext">500GB</div></div></td>
+  </tr>
+</table>
+
+<br/>
+<br/>
+
+
+
+
+HP Gen6/7 (12.5*9mm):
+<br/>
+
+Speed: <input type="text" class="hpspeed" value="Dual Port 10K">
+Interface: <input type="text" class="hpinterface" value="SAS">
+<br/>
+Size: <input type="text" class="hpsize" value="300 GB">
+Serial: <input type="text" class="hpserial" value="SPARE 123456-789">
+<br/>
+<br/>
+
+<script>
+$( "input.hpspeed" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( "div.hptext1" ).text( value );
+  })
+  .keyup();
+
+$( "input.hpinterface" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( "div.hptext2" ).text( value );
+  })
+  .keyup();
+
+$( "input.hpsize" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( "div.hptext3" ).text( value );
+  })
+  .keyup();
+
+$( "input.hpserial" )
+  .keyup(function() {
+    var value = $( this ).val();
+    $( "div.hptext4" ).text( value );
+  })
+  .keyup();
+
+</script>
+
+
+<table>
+  <tr>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+  </tr>
+  <tr>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+    <td><div class="hp"><div class="hptext1">Dual Port 10K</div><div class="hptext2">SAS</div><div class="hptext3">300 GB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+  </tr>
+
+</table>
+
+<br/>
+<br/>
+<p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
+<p>License: Creative Commons CC BY-SA 4.0. Single file source. Download, improve, rehost and share with the community.</p>
+
+</body>
+</html>

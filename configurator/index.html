@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homelab caddy label maker</title>
+  <!-- 
+  Originally created by /u/tollsjo for the /r/homelab community in December 2016
+  License: Creative Commons CC BY-SA 4.0
+-->
+<link rel="stylesheet" href="configurator.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+  <div id="top">
+      <img width="70px" height="70px" src="http://familjencohen.se/label/reddit-snoo.jpg"/>
+      Homelab caddy label maker
+    </div>
+
+    <div id='instruction'>
+      <h3>Print your own labels for drive caddies.</h3>
+      <p>Use the configurator to create the desired label(s), then click on "Print Page" to print it out. Make sure to print in the original size.</p> 
+      <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> In Safari: Select "Print Backgrounds". Firefox doesn't support CSS clip-paths, so the Dell labels lack the cut off corner.
+      </div>
+    </div>
+
+    <div id="exampleContainer">
+      Examples:
+      <table id="exampleTable">
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="printOutContainer">
+      <table id="printOutTable">
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#vendorPicker" id="btnStartConfigurator">Start Configurator</button>
+    <button type="button" class="btn btn-outline-primary" id="btnPrintPage">Print Page</button>
+    <center><button type="button" class="btn btn-outline-primary" id="btnRestartApp">Start Over</button></center>
+
+    <br/>
+    <br/>
+    
+    <p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
+    <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>License: <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons CC BY-SA 4.0</a></p>
+    <p>#initfortheblinkenlights</p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="vendorPicker" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center><h3>Choose a Disk Vendor</h3></center>
+        
+        <table width='100%' id="vendors" class="ui-widget ui-widget-content">
+          <tbody>
+            <tr>
+              <td width='50%'><img id='hp' src="hpe.jpg""/></td>
+              <td width='50%'><img id='dell' src="dell.png""/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="configuratorMain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      Form Factor:
+        <div id='formFactor' class="btn-group" data-toggle="buttons">
+          <label for="SFF" class="btn btn-outline-primary active">
+            <input type="radio" name="formFactor" id="SFF" autocomplete="off" checked/>2.5" (SFF)
+          </label>
+          <label for="LFF" class="btn btn-outline-primary">
+            <input type="radio" name="formFactor" id="LFF"/>3.5" (LFF)
+          </label>
+        </div>
+        Interface Type:
+        <div id='interfaceType' class="btn-group" data-toggle="buttons">
+          <label for="dualPort" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceType" id="dualPort">Dual Port
+					</label>
+          <label for="singlePort" class="btn btn-outline-primary active">
+						<input type="radio" name="interfaceType" id="singlePort" checked>Single Port
+					</label>
+        </div>
+        Interface Speed:
+        <div id='interfaceSpeed' class="btn-group" data-toggle="buttons">
+          <label for="SATA1" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gbps
+					</label>
+          <label for="SATA2/SAS" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceSpeed" id="SATA2/SAS">3 Gbps
+					</label>
+          <label for="SATA3/SAS2" class="btn btn-outline-primary active">
+						<input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gbps
+					</label>
+          <label for="SAS3" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceSpeed" id="SAS3">12 Gbps
+					</label>
+        </div>
+        <legend>Disk Speed: </legend>
+        <div id='diskSpeed' class="btn-group" data-toggle="buttons">          
+          <label for="5.4K" class="btn btn-outline-primary">
+						<input type="radio" name="diskSpeed" id="5.4K">5.4K
+					</label>
+          <label for="7.2K" class="btn btn-outline-primary active">
+						<input type="radio" name="diskSpeed" id="7.2K" checked>7.2K
+					</label>
+          <label for="10K" class="btn btn-outline-primary">
+						<input type="radio" name="diskSpeed" id="10K">10K
+					</label>
+          <label for="15K" class="btn btn-outline-primary">
+						<input type="radio" name="diskSpeed" id="15K">15K
+					</label>
+          <label for="disk_speed">Disk Speed</label>
+        </div>
+        <legend>Disk Type: </legend>
+        <div id='diskType' class="btn-group" data-toggle="buttons">
+          <label for="SAS" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SAS">SAS
+					</label>
+          <label for="SASMDL" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SASMDL">SAS MDL
+					</label>
+          <label for="SATA" class="btn btn-outline-primary active">
+						<input type="radio" name="diskType" id="SATA" checked>SATA
+					</label>
+          <label for="SATAMDL" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SATAMDL">SATA MDL
+					</label>
+          <label for="FC" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="FC">Fibre Channel
+					</label>
+          <label for="SSD" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SSD">SSD
+					</label>
+          <label for="SSNW" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SSNW">SSD SSNW
+					</label>
+        </div>
+        <fieldset id='otherProps'>          
+          <label for="capacity">Capacity</label>
+          <input type="text" name="capacity" id="capacity" value="1 TB" class="text ui-widget-content ui-corner-all">
+          <label for="serial">Serial number</label>
+          <input type="text" name="serial" id="serial" value="SPARE 123456-789" class="text ui-widget-content ui-corner-all">
+          <label for="addMore">Add More</label>
+          <input type="checkbox" name="addMore" id="addMore">
+          <!-- Allow form submission with keyboard without duplicating the dialog button -->
+          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='addNewDisk' class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+<script src="configurator.js"></script>
+
+</body>
+</html>

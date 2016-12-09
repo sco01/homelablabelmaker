@@ -8,58 +8,89 @@
   Originally created by /u/tollsjo for the /r/homelab community in December 2016
   License: Creative Commons CC BY-SA 4.0
 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="configurator.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="configurator.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
 </head>
 <body>
 
+<div class="container">
+  <div class="row">
   <div id="top">
-    <img width="70px" height="70px" src="http://familjencohen.se/label/reddit-snoo.jpg"/>
-    Homelab caddy label maker
-  </div>
+      <img width="70px" height="70px" src="http://familjencohen.se/label/reddit-snoo.jpg"/>
+      Homelab caddy label maker
+    </div>
 
-  <div id='instruction'>
-    <h3>Print your own labels for drive caddies.</h3>
-    <p>Use the configurator to create the desired label(s), then click on "Print Page" to print it out. Make sure to print in the original size.</p> 
-    <p>Notes: In Safari: Select "Print Backgrounds". Firefox doesn't support CSS clip-paths, so the Dell labels lack the cut off corner.</p>
-  </div>
+    <div id='instruction'>
+      <h3>Print your own labels for drive caddies.</h3>
+      <p>Use the configurator to create the desired label(s), then click on "Print Page" to print it out. Make sure to print in the original size.</p> 
+      <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> In Safari: Select "Print Backgrounds". Firefox doesn't support CSS clip-paths, so the Dell labels lack the cut off corner.
+      </div>
+    </div>
 
-  <div id="exampleContainer" class="ui-widget">
-  Examples:
-  <table id="exampleTable" class="ui-widget ui-widget-content">
-    <tbody>
-    </tbody>
-  </table>
-</div>
+    <div id="exampleContainer">
+      Examples:
+      <table id="exampleTable">
+        <tbody>
+        </tbody>
+      </table>
+    </div>
 
-<div id="printOutContainer" class="ui-widget">
-  <table id="printOutTable" class="ui-widget ui-widget-content">
-    <tbody>
-    </tbody>
-  </table>
-</div>
-<button id="btnStartConfigurator">Start Configurator</button>
-<button id="btnPrintPage">Print Page</button>
-<center><button id="btnRestartApp">Start Over</button></center>
+    <div id="printOutContainer">
+      <table id="printOutTable">
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#vendorPicker" id="btnStartConfigurator">Start Configurator</button>
+    <button type="button" class="btn btn-outline-primary" id="btnPrintPage">Print Page</button>
+    <center><button type="button" class="btn btn-outline-primary" id="btnRestartApp">Start Over</button></center>
 
-
-  <br/>
-  <br/>
-  <p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
+    <br/>
+    <br/>
+    
+    <p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
     <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>License: <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons CC BY-SA 4.0</a></p>
     <p>#initfortheblinkenlights</p>
+  </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="vendorPicker" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center><h3>Choose a Disk Vendor</h3></center>
+        
+        <table width='100%' id="vendors" class="ui-widget ui-widget-content">
+          <tbody>
+            <tr>
+              <td width='50%'><img id='hp' src="hpe.jpg""/></td>
+              <td width='50%'><img id='dell' src="dell.png""/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
-    <div id="dialog-form" title="Create new user">
-      <p class="validateTips">All form fields are required.</p>
-
-      <form>
+<!-- Modal -->
+<div class="modal fade" id="configuratorMain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      Form Factor:
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-outline-primary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Single Port
+          </label>
+          <label class="btn btn-outline-primary">
+            <input type="radio" name="options" id="option2" autocomplete="off"> Dual Port
+          </label>
+        </div>
         <fieldset id='formFactor'>
           <legend>Form Factor: </legend>
           <label for="SFF">2.5" (SFF)</label>
@@ -125,19 +156,16 @@
           <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
       </form>
+      </div>
     </div>
-
-  <div id="vendor-select" class="ui-widget">
-    <h1>Choose a Disk Vendor</h1>
-    <table width='100%' id="vendors" class="ui-widget ui-widget-content">
-      <tbody>
-        <tr>
-          <td width='50%'><img id='hp' src="hpe.jpg""/></td>
-          <td width='50%'><img id='dell' src="dell.png""/></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+<script src="configurator.js"></script>
 
 </body>
 </html>

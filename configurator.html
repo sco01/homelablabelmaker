@@ -83,68 +83,78 @@
     <div class="modal-content">
       <div class="modal-body">
       Form Factor:
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn btn-outline-primary active">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> Single Port
+        <div id='formFactor' class="btn-group" data-toggle="buttons">
+          <label for="SFF" class="btn btn-outline-primary active">
+            <input type="radio" name="formFactor" id="SFF" autocomplete="off" checked/>2.5" (SFF)
           </label>
-          <label class="btn btn-outline-primary">
-            <input type="radio" name="options" id="option2" autocomplete="off"> Dual Port
+          <label for="LFF" class="btn btn-outline-primary">
+            <input type="radio" name="formFactor" id="LFF"/>3.5" (LFF)
           </label>
         </div>
-        <fieldset id='formFactor'>
-          <legend>Form Factor: </legend>
-          <label for="SFF">2.5" (SFF)</label>
-          <input type="radio" name="formFactor" id="SFF" checked>
-          <label for="LFF">3.5" (LFF)</label>
-          <input type="radio" name="formFactor" id="LFF">
-        </fieldset>
-        <fieldset id='interfaceType'>
-          <legend>Interface Type: </legend>
-          <label for="dualPort">Dual Port</label>
-          <input type="radio" name="interfaceType" id="dualPort">
-          <label for="singlePort">Single Port</label>
-          <input type="radio" name="interfaceType" id="singlePort" checked>
-        </fieldset>
-        <fieldset id='interfaceSpeed'>
-          <legend>Interface Speed: </legend>
-          <label for="SATA1">1.5 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SATA1">
-          <label for="SATA2/SAS">3 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SATA2/SAS">
-          <label for="SATA3/SAS2">6 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>
-          <label for="SAS3">12 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SAS3">
-        </fieldset>
-        <fieldset id='diskSpeed'>          
-          <legend>Disk Speed: </legend>
-          <label for="5.4K">5.4K</label>
-          <input type="radio" name="diskSpeed" id="5.4K">
-          <label for="7.2K">7.2K</label>
-          <input type="radio" name="diskSpeed" id="7.2K" checked>
-          <label for="10K">10K</label>
-          <input type="radio" name="diskSpeed" id="10K">
-          <label for="15K">15K</label>
-          <input type="radio" name="diskSpeed" id="15K">
+        Interface Type:
+        <div id='interfaceType' class="btn-group" data-toggle="buttons">
+          <label for="dualPort" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceType" id="dualPort">Dual Port
+					</label>
+          <label for="singlePort" class="btn btn-outline-primary active">
+						<input type="radio" name="interfaceType" id="singlePort" checked>Single Port
+					</label>
+        </div>
+        Interface Speed:
+        <div id='interfaceSpeed' class="btn-group" data-toggle="buttons">
+          <label for="SATA1" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gbps
+					</label>
+          <label for="SATA2/SAS" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceSpeed" id="SATA2/SAS">3 Gbps
+					</label>
+          <label for="SATA3/SAS2" class="btn btn-outline-primary active">
+						<input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gbps
+					</label>
+          <label for="SAS3" class="btn btn-outline-primary">
+						<input type="radio" name="interfaceSpeed" id="SAS3">12 Gbps
+					</label>
+        </div>
+        <legend>Disk Speed: </legend>
+        <div id='diskSpeed' class="btn-group" data-toggle="buttons">          
+          <label for="5.4K" class="btn btn-outline-primary">
+						<input type="radio" name="diskSpeed" id="5.4K">5.4K
+					</label>
+          <label for="7.2K" class="btn btn-outline-primary active">
+						<input type="radio" name="diskSpeed" id="7.2K" checked>7.2K
+					</label>
+          <label for="10K" class="btn btn-outline-primary">
+						<input type="radio" name="diskSpeed" id="10K">10K
+					</label>
+          <label for="15K" class="btn btn-outline-primary">
+						<input type="radio" name="diskSpeed" id="15K">15K
+					</label>
           <label for="disk_speed">Disk Speed</label>
-        </fieldset>
-        <fieldset id='diskType'>
-          <legend>Disk Type: </legend>
-          <label for="SAS">SAS</label>
-          <input type="radio" name="diskType" id="SAS">
-          <label for="SASMDL">SAS MDL</label>
-          <input type="radio" name="diskType" id="SASMDL">
-          <label for="SATA">SATA</label>
-          <input type="radio" name="diskType" id="SATA" checked>
-          <label for="SATAMDL">SATA MDL</label>
-          <input type="radio" name="diskType" id="SATAMDL">
-          <label for="FC">Fibre Channel</label>
-          <input type="radio" name="diskType" id="FC">
-          <label for="SSD">SSD</label>
-          <input type="radio" name="diskType" id="SSD">
-          <label for="SSNW">SSD SSNW</label>
-          <input type="radio" name="diskType" id="SSNW">
-        </fieldset>
+        </div>
+        <legend>Disk Type: </legend>
+        <div id='diskType' class="btn-group" data-toggle="buttons">
+          <label for="SAS" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SAS">SAS
+					</label>
+          <label for="SASMDL" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SASMDL">SAS MDL
+					</label>
+          <label for="SATA" class="btn btn-outline-primary active">
+						<input type="radio" name="diskType" id="SATA" checked>SATA
+					</label>
+          <label for="SATAMDL" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SATAMDL">SATA MDL
+					</label>
+          <label for="FC" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="FC">Fibre Channel
+					</label>
+          <label for="SSD" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SSD">SSD
+					</label>
+          <label for="SSNW" class="btn btn-outline-primary">
+						<input type="radio" name="diskType" id="SSNW">SSD SSNW
+					</label>
+        </div>
         <fieldset id='otherProps'>          
           <label for="capacity">Capacity</label>
           <input type="text" name="capacity" id="capacity" value="1 TB" class="text ui-widget-content ui-corner-all">
@@ -156,6 +166,9 @@
           <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
       </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='addNewDisk' class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

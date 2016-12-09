@@ -41,7 +41,7 @@
       if ( !/(DP|Dual|Dual Port)/.test(speed)) {
         console.info ('This is a non DP Disk (' + type + ')');
 
-        diskSpeedObj.addClass('hpNonDP');
+        diskSpeedObj.addClass('nonDP');
       }
       
       if (/SSD/.test(type)) { diskTypeObj.text(String.fromCharCode(160)); }
@@ -91,12 +91,11 @@
         diskSpeedLabel = 'SATA SSD';
       }
 
-      console.info ('Disk Speed Label : ' + diskSpeedLabel);
-
       var valid = true;
 
       switch (vendorType) {
         case 'hp': 
+          console.info ('Disk Speed HP Label : ' + diskSpeedLabel);
           switch (formFactor.attr('for')) {
             case 'SFF':
               labelString = "<div class='hp SFF'><div class='speed'>{0}</div><div class='interface divider'>{1}</div><div class='capacity'>{2}</div><div class='serial'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
@@ -107,12 +106,13 @@
           }
           break;
         case 'dell':
+          console.info ('Disk Speed Dell Label : ' + diskSpeedDell);
           switch (formFactor.attr('for')) {
             case 'SFF':
-              labelString = "<div class='dell2'><div id='dellType' class='dell2uppertext'>{0}</div><div class='dell2lowertext'><div id='dellCapacity'>{1}</div><div id='dellSpeed'>{2}</div></div></div>".format(diskType.text(),capacity.val(),diskSpeedDell);
+              labelString = "<div class='dell slim'><div class='interface'>{0}</div><div class='capacity'>{1}</div><div class='speed'>{2}</div></div>".format(diskType.text(),capacity.val(),diskSpeedDell);
               break;
             case 'LFF':
-              labelString = "<div class='dell'><div id='dellType' class='delluppertext'>{0}</div><div id='dellCapacity' class='delllowertext'>{1}</div></div>".format(diskType.text(),capacity.val());
+              labelString = "<div class='dell wide'><div class='interface'>{0}</div><div><span class='capacity'>{1}</span> <span class='speed'>{2}</span></div></div>".format(diskType.text(),capacity.val(),diskSpeedDell);
             break;
           break;
         }
@@ -191,7 +191,7 @@
     $( "#btnRestartApp" ).button().on( "click", function() {
       $( "#btnPrintPage" ).show();
       $( "#btnStartConfigurator" ).show();
-      $( '#example').show();
+      $( '#exampleContainer').show();
       $( '#instruction').show();
       $( '#printOutTable tbody').html('');
       $(this).hide();
@@ -226,7 +226,7 @@
     });
    $('#addMore').checkboxradio();
 
-   $( "[name='formFactor']").on("change", function(e) {
+   /*$( "[name='formFactor']").on("change", function(e) {
       var target = $( e.target );
       var checked = target.is( ":checked" );
 
@@ -236,7 +236,7 @@
             $('#diskSpeed').show();
             $('[for=\'' + $('[name=\'diskSpeed\']:checked').attr('id') + '\']').addClass('ui-checkboxradio-checked ui-state-active')
           }
-   });
+   });*/
 
    $( "[name='diskType']").on("change", function(e) {
       var target = $( e.target );
@@ -245,7 +245,7 @@
           if (target.attr('id') === 'SSD' && checked ) {
             $('#diskSpeed').hide();
             $('#diskSpeed label').removeClass('ui-checkboxradio-checked ui-state-active')
-          } else if ( $( "[name='formFactor']:checked").attr('id') === 'SFF' ) {
+          } else /*if ( $( "[name='formFactor']:checked").attr('id') === 'SFF' )*/ {
             $('#diskSpeed').show();
             $('[for=\'' + $('[name=\'diskSpeed\']:checked').attr('id') + '\']').addClass('ui-checkboxradio-checked ui-state-active')
           }
@@ -255,7 +255,7 @@
   function preparePrint() {
     $( "#btnPrintPage" ).hide();
     $( "#btnStartConfigurator" ).hide();
-    $( '#example').hide();
+    $( '#exampleContainer').hide();
     $( '#instruction').hide();
     setTimeout(function() {
       $( '#btnRestartApp').show();

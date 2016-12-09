@@ -148,27 +148,27 @@ table#vendors img {
 
 /* Exmaple table */
 
-table#example-table,
+table#exampleTable,
 table#printOutTable {
   border: none;
   border-collapse: collapse; 
 }
 
-table#example-table tr:not(:last-child),
+table#exampleTable tr:not(:last-child),
 table#printOutTable tr:not(:last-child) {
   border-bottom: 1px solid #c5c5c5;
 }
 
-table#example-table td,
+table#exampleTable td,
 table#printOutTable td {
   width: 2.3cm;
   text-align: center;
   vertical-align: middle;
 }
 
-table#example-table .hp,
-table#example-table .dell,
-table#example-table .dell2 {
+table#exampleTable .hp,
+table#exampleTable .dell,
+table#exampleTable .dell2 {
   padding: 0px;
   margin: 5px 0px;
 }

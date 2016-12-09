@@ -150,6 +150,14 @@ $( function() {
       $('#' + targetTable + ' td .dell.LFF .capacity').last().css({'line-height': '0.8cm'})
     }
 
+    if ($('#multiplier').val() > 0) {
+      var multi = $('#multiplier').val();
+
+      for (var i = multi -1 ; i >= 0; i--) {
+        addUser();
+      }
+    }
+
     if($('#addMore:checked').length === 0) {
       $('#configuratorMain').modal('hide');
     }

@@ -37,16 +37,10 @@
     function hpTypeToColor(type,speed,obj) {
       formFactor     = $('#formFactor label.ui-checkboxradio-checked');
 
-      diskSpeedObj = obj.find('.hptext1');
-      diskTypeObj  = obj.find('.hptext2');
-      labelDivider = obj.find('.hpSFF_divider');
+      diskSpeedObj = obj.find('.speed');
+      diskTypeObj  = obj.find('.interface');
+      labelDivider = obj.find('.divider');
         
-      if ( formFactor.attr('for') === 'LFF') { 
-        diskSpeedObj = obj.find('.hpLFF_text1');
-        diskTypeObj  = obj.find('.hpLFF_text2');
-        labelDivider = obj.find('.hpLFF_divider');
-      }
-
       switch (true) {
         case /^SAS$/gi.test(type):
           labelDivider.addClass('hpPurple'); break;
@@ -121,10 +115,10 @@
         case 'hp': 
           switch (formFactor.attr('for')) {
             case 'SFF':
-              labelString = "<div class='hp'><div class='hptext1'>{0}</div><div class='hptext2 hpSFF_divider'>{1}</div><div class='hptext3'>{2}</div><div class='hptext4'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
+              labelString = "<div class='hp SFF'><div class='speed'>{0}</div><div class='interface divider'>{1}</div><div class='capacity'>{2}</div><div class='serial'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
               break;
             case 'LFF':
-              labelString = "<div class='hp-lff'><div><p class='hpLFF_text1'>{0}</p></div><div class='hpLFF_text2'>{1}</div><hr class='hpLFF_divider'/><div class='hpLFF_text3'>{2}</div><div class='hpLFF_text4'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
+              labelString = "<div class='hp LFF'><div class='speed'>{0}</div><div class='interface'>{1}</div><hr class='divider'/><div class='capacity'>{2}</div><div class='serial'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
             break;
           }
           break;
@@ -218,7 +212,7 @@
       $( '#users tbody').html('');
       $(this).hide();
     }).hide();
-X
+
     $('table#vendors img').click(function(e) {
       dialog.dialog( "close" );
       console.info($(this).attr('id') + ' Clicked!');
@@ -304,20 +298,20 @@ X
     <tbody>
       <tr>
         <td>HP 2.5" SFF</td>
-        <td><div class="hp"><div class="hptext1">Dual Port 15K</div><div class="hptext2 hpSFF_divider hpPurple">SAS</div><div class="hptext3">146 GB</div><div class="hptext4">SPARE 512744-001</div></div></td>
-        <td><div class="hp"><div class="hptext1">6G DP 7.2K</div><div class="hptext2 hpSFF_divider hpCyan">SAS MDL</div><div class="hptext3">500 GB</div><div class="hptext4">SPARE 508009-001</div></div></td>
-        <td><div class="hp"><div class="hptext1 hpNonDP">6G 7.2K</div><div class="hptext2 hpSFF_divider hpCyan">SATA</div><div class="hptext3">1 TB</div><div class="hptext4">SPARE 123456-789</div></div></td>
-        <td><div class="hp"><div class="hptext1 hpNonDP">SATA SSD</div><div class="hptext2 hpSFF_divider hpWhite">&nbsp;</div><div class="hptext3">400 GB</div><div class="hptext4">SPARE 690811-002</div></div></td>
-        <td><div class="hp"><div class="hptext1">Dual Port 15K</div><div class="hptext2 hpSFF_divider hpOrange">Fibre Channel</div><div class="hptext3">1 TB</div><div class="hptext4">SPARE 123456-789</div></div></td>
-        <td><div class="hp"><div class="hptext1 hpNonDP">SATA SSD</div><div class="hptext2 hpSFF_divider hpSSNW">&nbsp;</div><div class="hptext3">1 TB</div><div class="hptext4">SPARE 123456-789</div></div></td>
+        <td><div class="hp SFF"><div class="speed">Dual Port 15K</div><div class="interface divider hpPurple">SAS</div><div class="capacity">146 GB</div><div class="serial">SPARE 512744-001</div></div></td>
+        <td><div class="hp SFF"><div class="speed">6G DP 7.2K</div><div class="interface divider hpCyan">SAS MDL</div><div class="capacity">500 GB</div><div class="serial">SPARE 508009-001</div></div></td>
+        <td><div class="hp SFF"><div class="speed hpNonDP">6G 7.2K</div><div class="interface divider hpCyan">SATA</div><div class="capacity">1 TB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp SFF"><div class="speed hpNonDP">SATA SSD</div><div class="interface divider hpWhite">&nbsp;</div><div class="capacity">400 GB</div><div class="serial">SPARE 690811-002</div></div></td>
+        <td><div class="hp SFF"><div class="speed">Dual Port 15K</div><div class="interface divider hpOrange">Fibre Channel</div><div class="capacity">1 TB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp SFF"><div class="speed hpNonDP">SATA SSD</div><div class="interface divider hpSSNW">&nbsp;</div><div class="capacity">1 TB</div><div class="serial">SPARE 123456-789</div></div></td>
       </tr><tr>
         <td>HP 3.5" LFF</td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1">Dual Port 15K</p></div><div class="hpLFF_text2">SAS</div><hr class="hpLFF_divider hpPurple"><div class="hpLFF_text3">1 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1">6G DP 7.2K</p></div><div class="hpLFF_text2">SAS MDL</div><hr class="hpLFF_divider hpCyan"><div class="hpLFF_text3">4 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1 hpNonDP">6G 5.4K</p></div><div class="hpLFF_text2">SATA</div><hr class="hpLFF_divider hpCyan"><div class="hpLFF_text3">3 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1 hpNonDP">SATA SSD</p></div><div class="hpLFF_text2">&nbsp;</div><hr class="hpLFF_divider hpWhite"><div class="hpLFF_text3">512 GB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1">Dual Port 15K</p></div><div class="hpLFF_text2">Fibre Channel</div><hr class="hpLFF_divider hpOrange"><div class="hpLFF_text3">1 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1 hpNonDP">SATA SSD</p></div><div class="hpLFF_text2">&nbsp;</div><hr class="hpLFF_divider hpSSNW"><div class="hpLFF_text3">1 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
+        <td><div class="hp LFF"><div class="speed">Dual Port 15K</div><div class="interface">SAS</div><hr class="divider hpPurple"><div class="capacity">1 TB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp LFF"><div class="speed">6G DP 7.2K</div><div class="interface">SAS MDL</div><hr class="divider hpCyan"><div class="capacity">4 TB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp LFF"><div class="speed hpNonDP">6G 5.4K</div><div class="interface">SATA</div><hr class="divider hpCyan"><div class="capacity">3 TB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp LFF"><div class="speed hpNonDP">SATA SSD</div><div class="interface">&nbsp;</div><hr class="divider hpWhite"><div class="capacity">512 GB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp LFF"><div class="speed">Dual Port 15K</div><div class="interface">Fibre Channel</div><hr class="divider hpOrange"><div class="capacity">1 TB</div><div class="serial">SPARE 123456-789</div></div></td>
+        <td><div class="hp LFF"><div class="speed hpNonDP">SATA SSD</div><div class="interface">&nbsp;</div><hr class="divider hpSSNW"><div class="capacity">1 TB</div><div class="serial">SPARE 123456-789</div></div></td>
       </tr>
       <tr>
         <td>Dell 2.5" SFF</td>

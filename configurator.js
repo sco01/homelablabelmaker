@@ -44,7 +44,7 @@
         diskSpeedObj.addClass('nonDP');
       }
       
-      if (/SSD/.test(type)) { diskTypeObj.text(String.fromCharCode(160)); }
+      if (/SSD/.test(type) && vendorType !== 'dell') { diskTypeObj.text(String.fromCharCode(160)); }
 
     }
 
@@ -137,8 +137,8 @@
         /* Dell SSD fix */
         if (/SSD/i.test(diskType.attr('for')) && vendorType === 'dell' && formFactor.attr('for') === 'SFF') {
           console.info ('Dell SSD Fix');
-          $('#printOutTable td #dellSpeed').last().remove();
-          $('#printOutTable td #dellCapacity').last().css({'line-height': '0.8cm'})
+          $('#printOutTable td .dell.slim .speed').last().remove();
+          $('#printOutTable td .dell.slim .capacity').last().css({'line-height': '0.8cm'})
         }
 
         if($('#addMore:checked').length === 0) {

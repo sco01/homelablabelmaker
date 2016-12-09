@@ -8,9 +8,25 @@ div#users-contain table td, div#users-contain table th { border: 1px solid #eee;
 .ui-dialog .ui-state-error { padding: .3em; }
 .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
+.form-inline {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.configMainRow .row div{
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 700px) {
+  #configuratorMain .modal-dialog  {width:650px;}
+}
+
 body {
   font-family: Lato, arial, sans-serif;
   font-size: 10pt;
+  line-height: 1.2 !important;
 }
 
 #top {
@@ -24,7 +40,7 @@ body {
   font-family: Lato, arial, sans-serif;
   font-size: 42px;
 }
-
+  
 input {
   font-family: Arial,Helvetica,sans-serif;
   font-size: 1em;
@@ -152,6 +168,7 @@ table#vendors img {
 
 table#exampleTable,
 table#printOutTable {
+  align-self: center;
   border: none;
   border-collapse: collapse; 
 }

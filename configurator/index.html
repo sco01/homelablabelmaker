@@ -8,7 +8,7 @@
   Originally created by /u/tollsjo for the /r/homelab community in December 2016
   License: Creative Commons CC BY-SA 4.0
 -->
-<link rel="stylesheet" href="configurator.css">
+<link rel="stylesheet" href="css/configurator.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
 </head>
@@ -67,8 +67,8 @@
         <table width='100%' id="vendors" class="ui-widget ui-widget-content">
           <tbody>
             <tr>
-              <td width='50%'><img id='hp' src="hpe.jpg""/></td>
-              <td width='50%'><img id='dell' src="dell.png""/></td>
+              <td width='50%'><img id='hp' src="img/hpe.jpg""/></td>
+              <td width='50%'><img id='dell' src="img/dell.png""/></td>
             </tr>
           </tbody>
         </table>
@@ -78,88 +78,115 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="configuratorMain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="configuratorMain" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
-      Form Factor:
-        <div id='formFactor' class="btn-group" data-toggle="buttons">
-          <label for="SFF" class="btn btn-outline-primary active">
-            <input type="radio" name="formFactor" id="SFF" autocomplete="off" checked/>2.5" (SFF)
-          </label>
-          <label for="LFF" class="btn btn-outline-primary">
-            <input type="radio" name="formFactor" id="LFF"/>3.5" (LFF)
-          </label>
-        </div>
-        Interface Type:
-        <div id='interfaceType' class="btn-group" data-toggle="buttons">
-          <label for="dualPort" class="btn btn-outline-primary">
-						<input type="radio" name="interfaceType" id="dualPort">Dual Port
-					</label>
-          <label for="singlePort" class="btn btn-outline-primary active">
-						<input type="radio" name="interfaceType" id="singlePort" checked>Single Port
-					</label>
-        </div>
-        Interface Speed:
-        <div id='interfaceSpeed' class="btn-group" data-toggle="buttons">
-          <label for="SATA1" class="btn btn-outline-primary">
-						<input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gbps
-					</label>
-          <label for="SATA2/SAS" class="btn btn-outline-primary">
-						<input type="radio" name="interfaceSpeed" id="SATA2/SAS">3 Gbps
-					</label>
-          <label for="SATA3/SAS2" class="btn btn-outline-primary active">
-						<input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gbps
-					</label>
-          <label for="SAS3" class="btn btn-outline-primary">
-						<input type="radio" name="interfaceSpeed" id="SAS3">12 Gbps
-					</label>
-        </div>
-        <legend>Disk Speed: </legend>
-        <div id='diskSpeed' class="btn-group" data-toggle="buttons">          
-          <label for="5.4K" class="btn btn-outline-primary">
-						<input type="radio" name="diskSpeed" id="5.4K">5.4K
-					</label>
-          <label for="7.2K" class="btn btn-outline-primary active">
-						<input type="radio" name="diskSpeed" id="7.2K" checked>7.2K
-					</label>
-          <label for="10K" class="btn btn-outline-primary">
-						<input type="radio" name="diskSpeed" id="10K">10K
-					</label>
-          <label for="15K" class="btn btn-outline-primary">
-						<input type="radio" name="diskSpeed" id="15K">15K
-					</label>
-          <label for="disk_speed">Disk Speed</label>
-        </div>
-        <legend>Disk Type: </legend>
-        <div id='diskType' class="btn-group" data-toggle="buttons">
-          <label for="SAS" class="btn btn-outline-primary">
-						<input type="radio" name="diskType" id="SAS">SAS
-					</label>
-          <label for="SASMDL" class="btn btn-outline-primary">
-						<input type="radio" name="diskType" id="SASMDL">SAS MDL
-					</label>
-          <label for="SATA" class="btn btn-outline-primary active">
-						<input type="radio" name="diskType" id="SATA" checked>SATA
-					</label>
-          <label for="SATAMDL" class="btn btn-outline-primary">
-						<input type="radio" name="diskType" id="SATAMDL">SATA MDL
-					</label>
-          <label for="FC" class="btn btn-outline-primary">
-						<input type="radio" name="diskType" id="FC">Fibre Channel
-					</label>
-          <label for="SSD" class="btn btn-outline-primary">
-						<input type="radio" name="diskType" id="SSD">SSD
-					</label>
-          <label for="SSNW" class="btn btn-outline-primary">
-						<input type="radio" name="diskType" id="SSNW">SSD SSNW
-					</label>
+        <div class="container-fluid configMainRow">
+          <div class="row">
+            <div class="col-md-6">
+              Form Factor:<br/>
+              <div id='formFactor' class="btn-group" data-toggle="buttons">
+                <label for="SFF" class="btn btn-secondary btn-sm active">
+                  <input type="radio" name="formFactor" id="SFF" autocomplete="off" checked/>2.5" (SFF)
+                </label>
+                <label for="LFF" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="formFactor" id="LFF"/>3.5" (LFF)
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              Interface Type:<br/>
+              <div id='interfaceType' class="btn-group" data-toggle="buttons">
+                <label for="dualPort" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="interfaceType" id="dualPort">Dual Port
+                </label>
+                <label for="singlePort" class="btn btn-secondary btn-sm active">
+                  <input type="radio" name="interfaceType" id="singlePort" checked>Single Port
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              Interface Speed:<br/>
+              <div id='interfaceSpeed' class="btn-group" data-toggle="buttons">
+                <label for="SATA1" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gbps
+                </label>
+                <label for="SATA2/SAS" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="interfaceSpeed" id="SATA2/SAS">3 Gbps
+                </label>
+                <label for="SATA3/SAS2" class="btn btn-secondary btn-sm active">
+                  <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gbps
+                </label>
+                <label for="SAS3" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="interfaceSpeed" id="SAS3">12 Gbps
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              Disk Speed:<br/>
+              <div id='diskSpeed' class="btn-group" data-toggle="buttons">          
+                <label for="5.4K" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskSpeed" id="5.4K">5.4K
+                </label>
+                <label for="7.2K" class="btn btn-secondary btn-sm active">
+                  <input type="radio" name="diskSpeed" id="7.2K" checked>7.2K
+                </label>
+                <label for="10K" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskSpeed" id="10K">10K
+                </label>
+                <label for="15K" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskSpeed" id="15K">15K
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              Disk Type:<br/>
+              <div id='diskType' class="btn-group" data-toggle="buttons">
+                <label for="SAS" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SAS">SAS
+                </label>
+                <label for="SASMDL" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SASMDL">SAS MDL
+                </label>
+                <label for="SATA" class="btn btn-secondary btn-sm active">
+                  <input type="radio" name="diskType" id="SATA" checked>SATA
+                </label>
+                <label for="SATAMDL" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SATAMDL">SATA MDL
+                </label>
+                <label for="FC" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="FC">Fibre Channel
+                </label>
+                <label for="SSD" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SSD">SSD
+                </label>
+                <label for="SSNW" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SSNW">SSD SSNW
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <form class="form-inline">
+                <div class="form-group">
+                  <label for="capacity">Capacity</label><br/>
+                  <input class="form-control" type="text" placeholder="1 TB" id="capacity">
+                </div>
+                <div class="form-group">
+                  <label for="serial">Serial</label><br/>
+                  <input class="form-control" type="text" placeholder="SPARE 123456-789" id="serial">
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
         <fieldset id='otherProps'>          
-          <label for="capacity">Capacity</label>
-          <input type="text" name="capacity" id="capacity" value="1 TB" class="text ui-widget-content ui-corner-all">
-          <label for="serial">Serial number</label>
-          <input type="text" name="serial" id="serial" value="SPARE 123456-789" class="text ui-widget-content ui-corner-all">
           <label for="addMore">Add More</label>
           <input type="checkbox" name="addMore" id="addMore">
           <!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -168,7 +195,7 @@
       </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id='addNewDisk' class="btn btn-primary">Save changes</button>
+        <button type="button" id='addNewDisk' class="btn btn-outline-success">Add Disk</button>
       </div>
     </div>
   </div>
@@ -178,7 +205,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-<script src="configurator.js"></script>
+<script src="js/configurator.js"></script>
 
 </body>
 </html>

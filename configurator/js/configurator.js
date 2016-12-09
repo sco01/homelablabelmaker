@@ -31,7 +31,7 @@ $( function() {
     $('#configuratorMain').validator().on('submit', function (e) {
       if (e.isDefaultPrevented()) {
         $(this).validator('validate');
-        console.warn ('Validation field, the user should re-check the fileds before resubmitting');
+        console.warn ('Validation failed, the user should re-check the fileds before resubmitting');
       } else {
         addUser();
       }
@@ -59,6 +59,7 @@ $( function() {
         diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
         interfaceTypeSelector.parent().removeClass('active');
         interfaceTypeSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+        serial.addClass('disabled').removeAttr('required').attr('placeholder','Not Applicable').val('');
         ['SASMDL', 'SATAMDL', 'FC', 'SSNW'].forEach( function(s) {
           disableSelectorOption(diskTypeSelector, s);
         });
@@ -256,6 +257,7 @@ $( function() {
     }
     disableSelectorOption(interfaceSpeedSelector, 'SAS3');
     disableSelectorOption(interfaceSpeedSelector, 'SAS4');
+    serial.removeClass('disabled').attr('required',true).attr('placeholder','SPARE 123456-789').val('');
     $('#multiplier').val('');
     capacity.val('');
     serial.val('');

@@ -8,10 +8,10 @@
   Originally created by /u/tollsjo for the /r/homelab community in December 2016
   License: Creative Commons CC BY-SA 4.0
 -->
-<link rel="stylesheet" href="css/configurator.css">
+<link rel="stylesheet" href="css/configurator.min.css">
+<link rel="stylesheet" href="css/hpLabel.min.css">
+<link rel="stylesheet" href="css/dellLabel.min.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/hpLabel.css">
-<link rel="stylesheet" href="css/dellLabel.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
 </head>
@@ -159,10 +159,10 @@
                 <label for="SATA3/SAS2" class="btn btn-secondary btn-sm active">
                   <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gb
                 </label>
-                <label for="SAS3" class="btn btn-secondary btn-sm disabled">
+                <label for="SAS3" class="btn btn-secondary btn-sm disabled" style="pointer-events: none;">
                   <input type="radio" name="interfaceSpeed" id="SAS3">12 Gb
                 </label>
-                <label for="SAS4" class="btn btn-secondary btn-sm disabled">
+                <label for="SAS4" class="btn btn-secondary btn-sm disabled" style="pointer-events: none;">
                   <input type="radio" name="interfaceSpeed" id="SAS4">22.5 Gb
                 </label>
               </div>

@@ -151,11 +151,12 @@ $( function() {
       $('#' + targetTable + ' td .dell.LFF .capacity').last().css({'line-height': '0.8cm'})
     }
 
-    if ($('#multiplier').val() > 0) {
+    if ($('#multiplier').val() > 0 && multiAddRunning !== 1) {
       var multi = $('#multiplier').val();
       multiAddRunning = 1;
 
       for (var i = multi - 1 ; i >= 0; i--) {
+        console.log(i);
         addUser();
       }
       multiAddRunning = 0;

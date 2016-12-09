@@ -12,10 +12,21 @@ div#users-contain table td, div#users-contain table th { border: 1px solid #eee;
   text-align: center;
 }
 
-.configMainRow .row div{
+ul.list-group {
+
+}
+
+.configMainRow div.row div,
+.configMainRow div.row ul {
   text-align: center;
   display: inline-block;
   margin-bottom: 10px;
+}
+
+.switch-label {
+  position: relative;
+    right: 15px;
+    top: -3px;
 }
 
 .fa.fa-times.form-control-feedback {
@@ -24,6 +35,72 @@ div#users-contain table td, div#users-contain table th { border: 1px solid #eee;
   padding-top: 33px;
   z-index: 1000;
 }
+
+/* Stuff */
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+    right: 0px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+  .label-primary  {
+    background-color: #428bca;
+  }
+  .label-danger {
+    background-color: #d9534f;
+  }
+  .label-info {
+    background-color: #5bc0de;
+  }
+  .label-warning {
+    background-color: #f0ad4e;
+  }
+  .label-success {
+    background-color: #5cb85c;
+  }
+
+/* End Stuff */
 
 @media screen {
   .btn.disabled, .btn:disabled { opacity: 0.4 !important; }

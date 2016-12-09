@@ -148,17 +148,19 @@ table#vendors img {
 
 /* Exmaple table */
 
-table#example-table {
+table#example-table,
+table#printOutTable {
   border: none;
   border-collapse: collapse; 
 }
 
-table#example-table tr:not(:last-child) {
+table#example-table tr:not(:last-child),
+table#printOutTable tr:not(:last-child) {
   border-bottom: 1px solid #c5c5c5;
 }
 
 table#example-table td,
-table#printOutTable {
+table#printOutTable td {
   width: 2.3cm;
   text-align: center;
   vertical-align: middle;

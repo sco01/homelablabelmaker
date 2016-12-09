@@ -239,6 +239,8 @@ $( function() {
     $( "#btnStartConfigurator" ).show();
     $( '#exampleContainer').show();
     $( '#instruction').show();
+    $( '#topContainer').show();
+    $( 'footer' ).show();
     $( '#printOutTable tbody').html('').parent().parent().hide();
     $(this);
   }
@@ -277,11 +279,13 @@ $( function() {
   }
 
   function preparePrint() {
-    $( "#btnPrintPage" ).hide();
-    $( "#btnStartConfigurator" ).hide();
-    $( '#exampleContainer').hide();
-    $( '#instruction').hide();
-    $( '#btnRestartApp').hide();
+    $( '#btnPrintPage' ).hide();
+    $( '#btnStartConfigurator' ).hide();
+    $( '#exampleContainer' ).hide();
+    $( '#instruction' ).hide();
+    $( '#btnRestartApp' ).hide();
+    $( '#topContainer' ).hide();
+    $( 'footer' ).hide();
     setTimeout(function() {
       $( '#btnRestartApp').show().click();
     },100);

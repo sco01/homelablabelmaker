@@ -1,19 +1,48 @@
-label, input { display:block; }
-input.text { margin-bottom:12px; width:95%; padding: .4em; }
-fieldset { padding:0; border:0; margin-top:25px; }
-h1 { font-size: 1.2em; margin: .6em 0; }
-div#users-contain { width: 350px; margin: 20px 0; }
-div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-.ui-dialog .ui-state-error { padding: .3em; }
-.validateTips { border: 1px solid transparent; padding: 0.3em; }
-
-.form-inline {
-  text-align: center;
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+  font-family: Lato, arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.2 !important;
 }
 
-ul.list-group {
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+}
 
+.footer .row {
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* Main Container stlye */
+
+div#mainContainer {
+  margin-top: 50px;
+  margin-bottom: 2cm;
 }
 
 .configMainRow div.row div,
@@ -23,84 +52,77 @@ ul.list-group {
   margin-bottom: 10px;
 }
 
+/* Checkbox styling for the switch */
+
 .switch-label {
   position: relative;
-    right: 15px;
-    top: -3px;
+  right: 15px;
+  top: -3px;
 }
-
-.fa.fa-times.form-control-feedback {
-  position: absolute;
-  padding-left: 78px;
-  padding-top: 33px;
-  z-index: 1000;
-}
-
-/* Stuff */
 
 .material-switch > input[type="checkbox"] {
-    display: none;   
+  display: none;   
 }
 
 .material-switch > label {
-    cursor: pointer;
-    height: 0px;
-    position: relative; 
-    width: 40px;  
+  cursor: pointer;
+  height: 0px;
+  position: relative; 
+  width: 40px;  
 }
 
 .material-switch > label::before {
-    background: rgb(0, 0, 0);
-    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    content: '';
-    height: 16px;
-    margin-top: -8px;
-    position:absolute;
-    opacity: 0.3;
-    transition: all 0.4s ease-in-out;
-    width: 40px;
-    right: 0px;
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  content: '';
+  height: 16px;
+  margin-top: -8px;
+  position:absolute;
+  opacity: 0.3;
+  transition: all 0.4s ease-in-out;
+  width: 40px;
+  right: 0px;
 }
 .material-switch > label::after {
-    background: rgb(255, 255, 255);
-    border-radius: 16px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-    content: '';
-    height: 24px;
-    left: -4px;
-    margin-top: -8px;
-    position: absolute;
-    top: -4px;
-    transition: all 0.3s ease-in-out;
-    width: 24px;
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 24px;
+  left: -4px;
+  margin-top: -8px;
+  position: absolute;
+  top: -4px;
+  transition: all 0.3s ease-in-out;
+  width: 24px;
 }
 .material-switch > input[type="checkbox"]:checked + label::before {
-    background: inherit;
-    opacity: 0.5;
+  background: inherit;
+  opacity: 0.5;
 }
 .material-switch > input[type="checkbox"]:checked + label::after {
-    background: inherit;
-    left: 20px;
+  background: inherit;
+  left: 20px;
 }
 
-  .label-primary  {
-    background-color: #428bca;
-  }
-  .label-danger {
-    background-color: #d9534f;
-  }
-  .label-info {
-    background-color: #5bc0de;
-  }
-  .label-warning {
-    background-color: #f0ad4e;
-  }
-  .label-success {
-    background-color: #5cb85c;
-  }
+.label-primary  {
+  background-color: #428bca;
+}
+.label-danger {
+  background-color: #d9534f;
+}
+.label-info {
+  background-color: #5bc0de;
+}
+.label-warning {
+  background-color: #f0ad4e;
+}
+.label-success {
+  background-color: #5cb85c;
+}
 
-/* End Stuff */
+/* End Checkbox */
 
 @media screen {
   .btn.disabled, .btn:disabled { opacity: 0.4 !important; }
@@ -110,107 +132,14 @@ ul.list-group {
   #configuratorMain .modal-dialog  {width:650px;}
 }
 
-#addMoreContainer label.btn-outline-info.focus,
-#addMoreContainer label.btn-outline-info:focus, {
-  background-color: transparent !important;
-}
-
-.checkbox {
-  padding-left: 20px; }
-  .checkbox label {
-    display: inline-block;
-    position: relative;
-    padding-left: 5px; }
-    .checkbox label::before {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      width: 17px;
-      height: 17px;
-      left: 0;
-      margin-left: -20px;
-      border: 1px solid #cccccc;
-      border-radius: 3px;
-      background-color: #fff;
-      -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-      -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-      transition: border 0.15s ease-in-out, color 0.15s ease-in-out; }
-    .checkbox label::after {
-      display: inline-block;
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      left: -1px;
-      top: 1px;
-      margin-left: -20px;
-      padding-left: 3px;
-      padding-top: 1px;
-      font-size: 11px;
-      color: #555555; }
-  .checkbox input[type="checkbox"] {
-    opacity: 0; }
-    .checkbox input[type="checkbox"]:focus + label::before {
-      outline: thin dotted;
-      outline: 5px auto -webkit-focus-ring-color;
-      outline-offset: -2px; }
-    .checkbox input[type="checkbox"]:checked + label::after {
-      font-family: 'FontAwesome';
-      content: "\f00c"; }
-    .checkbox input[type="checkbox"]:disabled + label {
-      opacity: 0.65; }
-      .checkbox input[type="checkbox"]:disabled + label::before {
-        background-color: #eeeeee;
-        cursor: not-allowed; }
-  .checkbox.checkbox-circle label::before {
-    border-radius: 50%; }
-  .checkbox.checkbox-inline {
-    margin-top: 0; }
-
-.checkbox-primary input[type="checkbox"]:checked + label::before {
-  background-color: #428bca;
-  border-color: #428bca; }
-.checkbox-primary input[type="checkbox"]:checked + label::after {
-  color: #fff; }
-
-.checkbox-danger input[type="checkbox"]:checked + label::before {
-  background-color: #d9534f;
-  border-color: #d9534f; }
-.checkbox-danger input[type="checkbox"]:checked + label::after {
-  color: #fff; }
-
-.checkbox-info input[type="checkbox"]:checked + label::before {
-  background-color: #5bc0de;
-  border-color: #5bc0de; }
-.checkbox-info input[type="checkbox"]:checked + label::after {
-  color: #fff; }
-
-.checkbox-warning input[type="checkbox"]:checked + label::before {
-  background-color: #f0ad4e;
-  border-color: #f0ad4e; }
-.checkbox-warning input[type="checkbox"]:checked + label::after {
-  color: #fff; }
-
-.checkbox-success input[type="checkbox"]:checked + label::before {
-  background-color: #5cb85c;
-  border-color: #5cb85c; }
-.checkbox-success input[type="checkbox"]:checked + label::after {
-  color: #fff; }
-
-div#addMoreContainer {
+/*div#addMoreContainer {
   text-align: center;
   display: inline-block;
-}
+}*/
 
-
-body {
-  font-family: Lato, arial, sans-serif;
-  font-size: 10pt;
-  line-height: 1.2 !important;
-}
-
-#top {
+#topContainer {
   width: 100%;
-  margin: 0;
+  margin: 0 0 20px;
   padding: 0;
   background-color:#30333A;
   top: 0;
@@ -218,26 +147,9 @@ body {
   color: white;
   font-family: Lato, arial, sans-serif;
   font-size: 42px;
+  text-align: center;
 }
   
-input {
-  font-family: Arial,Helvetica,sans-serif;
-  font-size: 1em;
-  border: 1px solid #dddddd;
-  background: #ffffff;
-  color: #333333;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-input.text {
-  margin-bottom: 12px;
-  width: 95%;
-  padding: .4em;
-}
-
 /* Dell Label Styling */
 
 div.dell {
@@ -267,15 +179,6 @@ div.dell div.interface {
   color: black;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 13px;
-}
-
-.alert-fixed {
-    position:fixed; 
-    top: 0px; 
-    left: 0px; 
-    width: 100%;
-    z-index:9999; 
-    border-radius:0px
 }
 
 div.dell .capacity {
@@ -334,49 +237,6 @@ div.dell.SFF span.speed {
   background: -webkit-linear-gradient(left,  #f9eb03 1%,#2989d8 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to right,  #f9eb03 1%,#2989d8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9eb03', endColorstr='#2989d8',GradientType=1 ); /* IE6-9 */
-}
-
-/* Vendor select screen */
-
-table#vendors img {
-  width: 100px;
-}
-
-table#vendors td {
-  width: 50%;
-  text-align: center;
-}
-
-table#vendors img {
-  cursor: pointer;
-}
-
-/* Exmaple table */
-
-table#exampleTable,
-table#printOutTable {
-  align-self: center;
-  border: none;
-  border-collapse: collapse; 
-}
-
-table#exampleTable tr:not(:last-child),
-table#printOutTable tr:not(:last-child) {
-  border-bottom: 1px solid #c5c5c5;
-}
-
-table#exampleTable td,
-table#printOutTable td {
-  width: 2.3cm;
-  text-align: center;
-  vertical-align: middle;
-}
-
-table#exampleTable .hp,
-table#exampleTable .dell,
-table#exampleTable .dell2 {
-  padding: 0px;
-  margin: 5px 0px;
 }
 
 /* HP Gen 5/6/7 general settings */
@@ -479,4 +339,47 @@ table#exampleTable .dell2 {
  border: 0;
  margin: 0px;
  border-color: inherit;
+}
+
+/* Vendor select screen */
+
+table#vendors img {
+  width: 100px;
+}
+
+table#vendors td {
+  width: 50%;
+  text-align: center;
+}
+
+table#vendors img {
+  cursor: pointer;
+}
+
+/* Exmaple table */
+
+table#exampleTable,
+table#printOutTable {
+  align-self: center;
+  border: none;
+  border-collapse: collapse; 
+}
+
+table#exampleTable tr:not(:last-child),
+table#printOutTable tr:not(:last-child) {
+  border-bottom: 1px solid #c5c5c5;
+}
+
+table#exampleTable td,
+table#printOutTable td {
+  width: 2.3cm;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table#exampleTable .hp,
+table#exampleTable .dell,
+table#exampleTable .dell2 {
+  padding: 0px;
+  margin: 5px 0px;
 }

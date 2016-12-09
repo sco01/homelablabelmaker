@@ -1,15 +1,12 @@
 $( function() {
 
-  var disk_type           = $( "#disk_type" ),
+  var vendorType          = 'hp',
+  multiAddRunning         = 0,
+  disk_type               = $( "#disk_type" ),
   capacity                = $( "#capacity" ),
   serial                  = $( "#serial" ),
-  vendorType              = 'hp',
-  multiAddRunning         = 0,
-/*  interfaceSpeedSelector.parent().find('label[for=\'SATA1\']')         = $('#configuratorMain #interfaceSpeed label[for=\'SATA1\']'),
-  controllerSATA2         = $('#configuratorMain #interfaceSpeed label[for=\'SATA2/SAS\']'),
-  controllerSAS3          = $('#configuratorMain #interfaceSpeed label[for=\'SAS3\']'), */
   diskSpeedSelector       = $('#configuratorMain #diskSpeed label'),
-  diskTypeSelector       = $('#configuratorMain #diskType label'),
+  diskTypeSelector        = $('#configuratorMain #diskType label'),
   interfaceTypeSelector   = $('#configuratorMain #interfaceType label'),
   interfaceSpeedSelector  = $('#configuratorMain #interfaceSpeed label'),
   formFactorSelector      = $('#configuratorMain #formFactor label');
@@ -22,18 +19,86 @@ $( function() {
     { object: formFactorSelector, defaultField: 'SFF' }
   ];
   
+  createFormatTool();
+  initApp();
+  generateExample();
 
-  // First, checks if it isn't implemented yet.
-  if (!String.prototype.format) {
-    String.prototype.format = function() {
-      var args = arguments;
-      return this.replace(/{(\d+)}/g, function(match, number) { 
-        return typeof args[number] != 'undefined'
-        ? args[number]
-        : match
-        ;
-      });
-    };
+  /* Main Functions */
+
+  function initApp() {
+    $('#printOutContainer').hide();
+
+    $('#configuratorMain').validator().on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        $(this).validator('validate');
+        console.warn ('Validation field, the user should re-check the fileds before resubmitting');
+      } else {
+        addUser();
+      }
+    });
+
+    $( "#addNewDisk" ).button().on( "click", function() {
+      $('#configuratorMain').submit();
+    });
+
+    $( "#btnPrintPage" ).button().on( "click", function() {
+      preparePrint();
+      window.print();
+    });
+
+    $( "#btnRestartApp" ).button().on( "click", function() {
+      resetPage();
+    });
+
+    $('table#vendors img').click(function(e) {
+      $('#vendorPicker').modal('hide');
+      console.info($(this).attr('id') + ' Clicked!');
+      vendorType = $(this).attr('id');
+      if (vendorType === 'dell') {
+        diskSpeedSelector.parent().removeClass('active');
+        diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+        interfaceTypeSelector.parent().removeClass('active');
+        interfaceTypeSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+        ['SASMDL', 'SATAMDL', 'FC', 'SSNW'].forEach( function(s) {
+          disableSelectorOption(diskTypeSelector, s);
+        });
+      }
+      $('#configuratorMain').modal('show');
+      $('#configuratorMain').validator('validate');
+    });
+
+
+    $('#configuratorMain').on('hidden.bs.modal', function () {
+      resetConfigurator();
+    });
+
+    $('#diskType label').on('change', function (){
+      var diskType = $('#diskType input:radio:checked').parent().text().trim();
+
+      console.log (diskType);
+      if (/SSD/gi.test(diskType)) {
+        console.info ('SSD is selected disable the disk speed option.');
+        diskSpeedSelector.parent().find('.active').removeClass('active').addClass('wasActive');
+        diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+      } else if (diskSpeedSelector.hasClass('disabled')) {
+        diskSpeedSelector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
+        diskSpeedSelector.removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
+      }
+
+      if (/SAS/gi.test(diskType)) {
+        console.info ('SAS Disk selected disable the 1.5 Gbps speed option.');
+        disableSelectorOption(interfaceSpeedSelector, 'SATA1');
+      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SATA1') ) {
+        enableSelectorOption(interfaceSpeedSelector, 'SATA1');
+      }
+
+      if (/(SATA|SSD)/gi.test(diskType)) {
+        console.info ('SATA Disk selected disable controller speeds faster than SATAIII.');
+        disableSelectorOption(interfaceSpeedSelector, 'SAS3');
+      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') ) {
+        enableSelectorOption(interfaceSpeedSelector, 'SAS3');
+      }
+    });
   }
 
   function hpTypeToColor(type,speed,obj) {
@@ -64,11 +129,9 @@ $( function() {
 
   }
 
-  function addUser(e, formFactor = false, interfaceType = false, interfaceSpeed = false, diskSpeed = false, diskType = false, diskCapacity = false, diskSerial = false, targetTable = 'printOutTable', targetNumber = 6 ) {
+  function addUser(e, formFactor = false, interfaceType = false, interfaceSpeed = false, diskSpeed = false, diskType = false, diskCapacity = false, diskSerial = false, targetTable = 'printOutTable', targetNumber = 8 ) {
     diskSpeedLabel = '';
     diskSpeedDell  = '';
-
-    console.info (formFactor)
 
     formFactor      = formFactor      === false ? $('#formFactor label.active').attr('for')     : formFactor;
     interfaceType   = interfaceType   === false ? $('#interfaceType label.active').attr('for')  : interfaceType;
@@ -79,7 +142,12 @@ $( function() {
     diskSerial      = diskSerial      === false ? serial.val()                                                    : diskSerial;
 
     console.info ('FF: ' + formFactor + ' -- IF: ' + interfaceType + ' -- IFS: ' + interfaceSpeed + ' -- DSp: ' + diskSpeed + ' -- DT: ' + diskType + ' -- DC: ' + diskCapacity + ' -- DSe: ' + diskSpeed + ' -- TT: ' + targetTable + ' -- TN: ' + targetNumber);
-    console.warn ($('#' + targetTable + ' tr').length);
+
+    if ( targetTable === 'printOutTable' ) {
+      console.log ('WTF');
+      $('#printOutContainer').show();
+      $('#exampleContainer').hide();
+    }
 
     switch (interfaceSpeed) {
       case 'SATA2/SAS':
@@ -155,8 +223,7 @@ $( function() {
       var multi = $('#multiplier').val();
       multiAddRunning = 1;
 
-      for (var i = multi - 1 ; i >= 0; i--) {
-        console.log(i);
+      for (var i = multi - 1 ; i > 0; i--) {
         addUser();
       }
       multiAddRunning = 0;
@@ -167,49 +234,14 @@ $( function() {
     }
   }
 
-  $('#configuratorMain').validator().on('submit', function (e) {
-    if (e.isDefaultPrevented()) {
-      $(this).validator('validate');
-      console.warn ('Validation field, the user should re-check the fileds before resubmitting');
-    } else {
-      addUser();
-    }
-  });
-
-  $( "#addNewDisk" ).button().on( "click", function() {
-    $('#configuratorMain').submit();
-  });
-
-  $( "#btnPrintPage" ).button().on( "click", function() {
-    preparePrint();
-    window.print();
-  });
-
-  $( "#btnRestartApp" ).button().on( "click", function() {
+  function resetPage() {
     $( "#btnPrintPage" ).show();
     $( "#btnStartConfigurator" ).show();
     $( '#exampleContainer').show();
     $( '#instruction').show();
-    $( '#printOutTable tbody').html('');
-    $(this).hide();
-  }).hide();
-
-  $('table#vendors img').click(function(e) {
-    $('#vendorPicker').modal('hide');
-    console.info($(this).attr('id') + ' Clicked!');
-    vendorType = $(this).attr('id');
-    if (vendorType === 'dell') {
-      diskSpeedSelector.parent().removeClass('active');
-      diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
-      interfaceTypeSelector.parent().removeClass('active');
-      interfaceTypeSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
-      ['SASMDL', 'SATAMDL', 'FC', 'SSNW'].forEach( function(s) {
-        disableSelectorOption(diskTypeSelector, s);
-      });
-    }
-    $('#configuratorMain').modal('show');
-    $('#configuratorMain').validator('validate');
-  });
+    $( '#printOutTable tbody').html('').parent().parent().hide();
+    $(this);
+  }
 
   function resetConfigurator() {
     for (field in objectsToReset) {
@@ -217,41 +249,11 @@ $( function() {
       objectsToReset[field].object.parent().find('[for="' + objectsToReset[field].defaultField + '"]').addClass('active');
     }
     disableSelectorOption(interfaceSpeedSelector, 'SAS3');
+    $('#multiplier').val('');
     capacity.val('');
     serial.val('');
+    multiAddRunning = 0;
   }
-
-  $('#configuratorMain').on('hidden.bs.modal', function () {
-    resetConfigurator();
-  });
-
-  $('#diskType label').on('change', function (){
-    var diskType = $('#diskType input:radio:checked').parent().text().trim();
-
-    console.log (diskType);
-    if (/SSD/gi.test(diskType)) {
-      console.info ('SSD is selected disable the disk speed option.');
-      diskSpeedSelector.parent().find('.active').removeClass('active').addClass('wasActive');
-      diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
-    } else if (diskSpeedSelector.hasClass('disabled')) {
-      diskSpeedSelector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
-      diskSpeedSelector.removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
-    }
-
-    if (/SAS/gi.test(diskType)) {
-      console.info ('SAS Disk selected disable the 1.5 Gbps speed option.');
-      disableSelectorOption(interfaceSpeedSelector, 'SATA1');
-    } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SATA1') ) {
-      enableSelectorOption(interfaceSpeedSelector, 'SATA1');
-    }
-
-    if (/(SATA|SSD)/gi.test(diskType)) {
-      console.info ('SATA Disk selected disable controller speeds faster than SATAIII.');
-      disableSelectorOption(interfaceSpeedSelector, 'SAS3');
-    } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') ) {
-      enableSelectorOption(interfaceSpeedSelector, 'SAS3');
-    }
-  });
 
   function disableSelectorOption (selector, label) {
     var selectorOption = selector.parent().find('label[for=\'' + label + '\']');
@@ -279,15 +281,16 @@ $( function() {
     $( "#btnStartConfigurator" ).hide();
     $( '#exampleContainer').hide();
     $( '#instruction').hide();
+    $( '#btnRestartApp').hide();
     setTimeout(function() {
-      $( '#btnRestartApp').show();
-    },1000);
+      $( '#btnRestartApp').show().click();
+    },100);
   }
 
   function generateExample() {
     examples = {
       hpSFF: {
-        title: 'HP 2.5" (SFF)',
+        title: 'HP G5/6/7 2.5" (SFF)',
         vendorType: 'hp',
         fields: [
           {formFactor: 'SFF', interfaceType: 'dualPort', interfaceSpeed: 'SATA2/SAS', diskSpeed: '15K', diskType: 'SAS', diskCapacity: '146 GB', diskSerial: 'SPARE 512744-001'},
@@ -299,7 +302,7 @@ $( function() {
         ]
       },
       hpLFF: {
-        title: 'HP 3.5" (LFF)',
+        title: 'HP G5/6/7 3.5" (LFF)',
         vendorType: 'hp',
         fields: [
           {formFactor: 'LFF', interfaceType: 'dualPort', interfaceSpeed: 'SATA2/SAS', diskSpeed: '15K', diskType: 'SAS', diskCapacity: '1 TB', diskSerial: 'SPARE 123456-789'},
@@ -311,7 +314,7 @@ $( function() {
         ]
       },
       dellSFF: {
-        title: 'Dell 2.5" (SFF)',
+        title: 'Dell Gen11 2.5" (SFF)',
         vendorType: 'dell',
         fields: [
           {formFactor: 'SFF', interfaceType: '', interfaceSpeed: '', diskSpeed: '7.2K', diskType: 'SATA', diskCapacity: '512 GB', diskSerial: ''},
@@ -323,7 +326,7 @@ $( function() {
         ]
       },
       dellLFF: {
-        title: 'Dell 3.5" (LFF)',
+        title: 'Dell Gen11 3.5" (LFF)',
         vendorType: 'dell',
         fields: [
           {formFactor: 'LFF', interfaceType: '', interfaceSpeed: '', diskSpeed: '15K', diskType: 'SAS', diskCapacity: '1 TB', diskSerial: ''},
@@ -351,5 +354,21 @@ $( function() {
     }
   }
 
-  generateExample();
+  /* Helper functions */
+
+
+  function createFormatTool() {
+    // Used to have .format like sprintf in JavaScript. //
+    if (!String.prototype.format) {
+      String.prototype.format = function() {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function(match, number) { 
+          return typeof args[number] != 'undefined'
+          ? args[number]
+          : match
+          ;
+        });
+      };
+    }
+  }
 });

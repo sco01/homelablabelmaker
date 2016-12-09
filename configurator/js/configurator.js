@@ -95,8 +95,10 @@ $( function() {
       if (/(SATA|SSD)/gi.test(diskType)) {
         console.info ('SATA Disk selected disable controller speeds faster than SATAIII.');
         disableSelectorOption(interfaceSpeedSelector, 'SAS3');
-      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') ) {
+        disableSelectorOption(interfaceSpeedSelector, 'SAS4');
+      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') || isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS4')) {
         enableSelectorOption(interfaceSpeedSelector, 'SAS3');
+        enableSelectorOption(interfaceSpeedSelector, 'SAS4');
       }
     });
   }
@@ -129,17 +131,19 @@ $( function() {
 
   }
 
-  function addUser(e, formFactor = false, interfaceType = false, interfaceSpeed = false, diskSpeed = false, diskType = false, diskCapacity = false, diskSerial = false, targetTable = 'printOutTable', targetNumber = 8 ) {
+  function addUser(e, formFactor, interfaceType, interfaceSpeed, diskSpeed, diskType, diskCapacity, diskSerial, targetTable, targetNumber ) {
     diskSpeedLabel = '';
     diskSpeedDell  = '';
 
-    formFactor      = formFactor      === false ? $('#formFactor label.active').attr('for')     : formFactor;
-    interfaceType   = interfaceType   === false ? $('#interfaceType label.active').attr('for')  : interfaceType;
-    interfaceSpeed  = interfaceSpeed  === false ? $('#interfaceSpeed label.active').attr('for') : interfaceSpeed;
-    diskSpeed       = diskSpeed       === false ? $('#diskSpeed label.active').attr('for')      : diskSpeed;
-    diskType        = diskType        === false ? $('#diskType label.active').text().trim()     : diskType;
-    diskCapacity    = diskCapacity    === false ? capacity.val()                                                  : diskCapacity;
-    diskSerial      = diskSerial      === false ? serial.val()                                                    : diskSerial;
+    formFactor      = formFactor      === undefined ? $('#formFactor label.active').attr('for')     : formFactor;
+    interfaceType   = interfaceType   === undefined ? $('#interfaceType label.active').attr('for')  : interfaceType;
+    interfaceSpeed  = interfaceSpeed  === undefined ? $('#interfaceSpeed label.active').attr('for') : interfaceSpeed;
+    diskSpeed       = diskSpeed       === undefined ? $('#diskSpeed label.active').attr('for')      : diskSpeed;
+    diskType        = diskType        === undefined ? $('#diskType label.active').text().trim()     : diskType;
+    diskCapacity    = diskCapacity    === undefined ? capacity.val()                                : diskCapacity;
+    diskSerial      = diskSerial      === undefined ? serial.val()                                  : diskSerial;
+    targetTable     = targetTable     === undefined ? 'printOutTable'                               : targetTable;
+    targetNumber    = targetNumber    === undefined ? 8                                             : targetNumber;
 
     console.info ('FF: ' + formFactor + ' -- IF: ' + interfaceType + ' -- IFS: ' + interfaceSpeed + ' -- DSp: ' + diskSpeed + ' -- DT: ' + diskType + ' -- DC: ' + diskCapacity + ' -- DSe: ' + diskSpeed + ' -- TT: ' + targetTable + ' -- TN: ' + targetNumber);
 
@@ -251,6 +255,7 @@ $( function() {
       objectsToReset[field].object.parent().find('[for="' + objectsToReset[field].defaultField + '"]').addClass('active');
     }
     disableSelectorOption(interfaceSpeedSelector, 'SAS3');
+    disableSelectorOption(interfaceSpeedSelector, 'SAS4');
     $('#multiplier').val('');
     capacity.val('');
     serial.val('');

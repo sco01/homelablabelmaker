@@ -65,8 +65,7 @@ div.dell.slim {
   clip-path: polygon(0% 20%, 20% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-div.dell.wide div.interface,
-div.dell.slim div.interface {
+div.dell div.interface {
   vertical-align: top;  
   text-align: center;
   padding-left: 0.1cm;
@@ -76,24 +75,30 @@ div.dell.slim div.interface {
 }
 
 
-div.dell.wide div.capacity,
-div.dell.slim div.capacity {
+div.dell div.capacity {
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;  
   color: white;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  font-size: 10px;
 }
 
-div.dell.wide div.speed,
-div.dell.slim div.speed {
+div.dell div.speed {
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;  
   color: white;
   font-family: Arial, ' Helvetica Neue', Helvetica, sans-serif;
+}
+
+div.dell.slim div.capacity,
+div.dell.slim div.speed {
   font-size: 10px;
+}
+
+div.dell.wide div.capacity,
+div.dell.wide div.speed {
+  font-size: 8px;
 }
 
 /* HP Color Codes */

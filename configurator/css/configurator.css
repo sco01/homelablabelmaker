@@ -43,6 +43,34 @@ body {
 div#mainContainer {
   margin-top: 50px;
   margin-bottom: 2cm;
+  text-align: center;
+  width:100%;
+  height:100%;
+}
+
+div#mainContainer table {
+  margin: 0 auto;
+  border: none;
+  border-collapse: collapse; 
+}
+
+div#mainContainer table tr:not(:last-child),
+div#mainContainer table tr:not(:last-child) {
+  border-bottom: 1px solid #c5c5c5;
+}
+
+div#mainContainer table td,
+div#mainContainer table td {
+  width: 2.3cm;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div#mainContainer table .hp,
+div#mainContainer table .dell,
+div#mainContainer table .dell2 {
+  padding: 0px;
+  margin: 5px 0px;
 }
 
 .configMainRow div.row div,
@@ -354,32 +382,4 @@ table#vendors td {
 
 table#vendors img {
   cursor: pointer;
-}
-
-/* Exmaple table */
-
-table#exampleTable,
-table#printOutTable {
-  align-self: center;
-  border: none;
-  border-collapse: collapse; 
-}
-
-table#exampleTable tr:not(:last-child),
-table#printOutTable tr:not(:last-child) {
-  border-bottom: 1px solid #c5c5c5;
-}
-
-table#exampleTable td,
-table#printOutTable td {
-  width: 2.3cm;
-  text-align: center;
-  vertical-align: middle;
-}
-
-table#exampleTable .hp,
-table#exampleTable .dell,
-table#exampleTable .dell2 {
-  padding: 0px;
-  margin: 5px 0px;
 }

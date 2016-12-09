@@ -86,12 +86,13 @@ div.dell.slim div.capacity {
   font-size: 10px;
 }
 
-div.dell.wide div.speed {
+div.dell.wide div.speed,
+div.dell.slim div.speed {
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;  
   color: white;
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: Arial, ' Helvetica Neue', Helvetica, sans-serif;
   font-size: 10px;
 }
 

@@ -49,6 +49,68 @@
     <button type="button" class="btn btn-outline-primary" id="btnPrintPage">Print Page</button>
     <center><button type="button" class="btn btn-outline-primary" id="btnRestartApp">Start Over</button></center>
 
+    <div class="container">
+    <h3 class="text-center">Material Design Switch</h3>
+    <hr>
+    <div class="col-xs-12">
+        <p class="lead">I have been using an Android Device for the last few days and am falling in love with the switchs they use in Android. I loved them so much I wanted to port them over to Bootstrap so I could use them in future projects. I did some research and all of the ones I could find used custom colors which prevented them from working with Bootswatch or required you to edit the css files to make them match your theme. I wanted to work around that.</p>
+        <p class="lead">Please use the theme picker above to see how this snippet works with bootswatch themes. I hope you enjoy this snippet.</p>    
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Material Design Switch Demos</div>
+            
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        Bootstrap Switch Default
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionDefault" class="label-default"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Bootstrap Switch Primary
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Bootstrap Switch Success
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Bootstrap Switch Info
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Bootstrap Switch Warning
+                        
+                    <li class="list-group-item">
+                        Bootstrap Switch Danger
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionDanger" class="label-danger"></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>            
+        </div>
+    </div>
+</div>
+
     <br/>
     <br/>
     
@@ -62,8 +124,13 @@
 <div class="modal fade" id="vendorPicker" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-body">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <center><h3>Choose a Disk Vendor</h3></center>
+      </div>
+      <div class="modal-body">
         
         <table width='100%' id="vendors" class="ui-widget ui-widget-content">
           <tbody>
@@ -82,6 +149,12 @@
 <div class="modal fade" id="configuratorMain" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <center><h3>Disk Configurator</h3></center>
+      </div>
       <div class="modal-body">
         <div class="container-fluid configMainRow">
           <div class="row">
@@ -113,16 +186,19 @@
               Interface Speed:<br/>
               <div id='interfaceSpeed' class="btn-group" data-toggle="buttons">
                 <label for="SATA1" role='button' class="btn btn-secondary btn-sm">
-                  <input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gbps
+                  <input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gb
                 </label>
                 <label for="SATA2/SAS" class="btn btn-secondary btn-sm">
-                  <input type="radio" name="interfaceSpeed" id="SATA2/SAS">3 Gbps
+                  <input type="radio" name="interfaceSpeed" id="SATA2/SAS">3 Gb
                 </label>
                 <label for="SATA3/SAS2" class="btn btn-secondary btn-sm active">
-                  <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gbps
+                  <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gb
                 </label>
                 <label for="SAS3" class="btn btn-secondary btn-sm disabled">
-                  <input type="radio" name="interfaceSpeed" id="SAS3">12 Gbps
+                  <input type="radio" name="interfaceSpeed" id="SAS3">12 Gb
+                </label>
+                <label for="SAS4" class="btn btn-secondary btn-sm disabled">
+                  <input type="radio" name="interfaceSpeed" id="SAS"4boo>22.5 Gb
                 </label>
               </div>
             </div>
@@ -172,6 +248,17 @@
               </div>
             </div>
           </div>
+<!--           <div class="row">
+            <div class="col-md-12">
+              <div>
+                <div class="pull-left switch-label">MDL</div>
+                <div id='diskMDLSelector' class="material-switch pull-left">
+                  <input id="diskMDL" type="checkbox">
+                  <label for="diskMDL" class="label-info disabled"></label>
+                </div>
+              </div>
+            </div>
+          </div> -->
           <div class="row">
             <div class="col-md-12">
               <form data-toggle="validator" class="form-inline">
@@ -187,16 +274,23 @@
                     <input class="form-control" type="text" pattern="^[_\s\-A-z0-9]{1,}$" maxlength="18" placeholder="SPARE 123456-789" id="serial" required>
                   </div>
                 </div>
+                <div class="form-group has-feedback">
+                  <label for="multiplier">How many disks?</label><br/>
+                  <div class="input-group">
+                    <input class="form-control" type="text" pattern="^[0-9]{1,5}$" maxlength="5" placeholder="Optional" id="multiplier">
+                  </div>
+                </div>
               </form>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div id='addMoreContainer' class="checkbox checkbox-warning">
-                <input id="addMore" type="checkbox">
-                <label for="addMore">
-                    Add More
-                </label>
+              <div>
+                <div class="pull-left switch-label">Add More</div>
+                <div id='addMoreContainer' class="material-switch pull-left">
+                  <input id="addMore" type="checkbox">
+                  <label for="addMore" class="label-warning"></label>
+                </div>
               </div>
             </div>
           </div>

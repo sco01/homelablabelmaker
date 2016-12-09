@@ -1,66 +1,33 @@
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Homelab caddy label maker</title>
-  <!-- 
-  Originally created by /u/tollsjo for the /r/homelab community in December 2016
-  License: Creative Commons CC BY-SA 4.0
+<!-- 
+Originally created by /u/tollsjo for the /r/homelab community in December 2016
+License: Creative Commons CC BY-SA 4.0
+
+Modified by /u/is4m4 dec 2016
 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <style>
-  label, input { display:block; }
-  input.text { margin-bottom:12px; width:95%; padding: .4em; }
-  fieldset { padding:0; border:0; margin-top:25px; }
-  h1 { font-size: 1.2em; margin: .6em 0; }
-  div#users-contain { width: 350px; margin: 20px 0; }
-  div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-  div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-  .ui-dialog .ui-state-error { padding: .3em; }
-  .validateTips { border: 1px solid transparent; padding: 0.3em; }
 
-  body {
-    font-family: Lato, arial, sans-serif;
-    font-size: 10pt;
-  }
+body {
+   font-family: Lato, arial, sans-serif;
+}
 
-  #top {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color:#30333A;
-    top: 0;
-    left: 0;
-    color: white;
-    font-family: Lato, arial, sans-serif;
-    font-size: 42px;
-  }
+#top {
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   background-color:#30333A;
+   top: 0;
+   left: 0;
+   color: white;
+   font-family: Lato, arial, sans-serif;
+   font-size: 42px;
+}
 
-  input {
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 1em;
-    border: 1px solid #dddddd;
-    background: #ffffff;
-    color: #333333;
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-  }
+/* Dell Gen11 (3.5in/2.5in) (14*8mm) */
 
-  input.text {
-    margin-bottom: 12px;
-    width: 95%;
-    padding: .4em;
-  }
-
-  /* Dell Label Styling */
-
-  div.dell {
+div.dellwide {
   width: 1.4cm;
   height: 0.8cm;
   background: linear-gradient(to bottom, #E0E0E0 50%, #000000 50%);
@@ -68,7 +35,7 @@
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 80%);
 }
 
-div.delluppertext{
+div.dellwide div.interface{
   vertical-align: top;  
   text-align: center;
   padding-left: 0.1cm;
@@ -77,17 +44,18 @@ div.delluppertext{
   font-size: 13px;
 }
 
-div.delllowertext{
+div.dellwide div.size{
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;  
   color: white;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  font-size: 9px;
+  font-size: 10px;
 }
 
+/*  Dell Gen11 (2.5in) (12*12mm) */
 
-div.dell2 {
+div.dellslim {
   width: 1.2cm;
   height: 1.2cm;
   background: linear-gradient(to bottom, #E0E0E0 33%, #000000 33%);
@@ -95,7 +63,7 @@ div.dell2 {
   clip-path: polygon(0% 20%, 20% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-div.dell2uppertext{
+div.dellslim div.interface{
   vertical-align: top;
   text-align: center;
   padding-left: 0.1cm;
@@ -104,7 +72,7 @@ div.dell2uppertext{
   font-size: 13px;
 }
 
-.dell2lowertext div {
+div.dellslim div.size{
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;
@@ -114,608 +82,184 @@ div.dell2uppertext{
   white-space: pre-wrap; 
 }
 
-/* HP Color Codes */
-  .hpPurple {
-    background-color: #8B008B !important; /* SAS */
-  }
+/*  HP Gen 5/6/7 (12.5*9mm)*/
 
-  .hpCyan {
-    background-color: #69c7fb !important; /* SATA / SAS MDL */
-  }
+.hp {
+  width: 1.2cm;
+  height: 0.9cm;
+}
 
-  .hpOrange {
-    background-color: #febe38 !important; /* Fibre Channel */
-  }
+.hp div.speed{
+  border-top: thin solid #000000;
+  line-height: 0.2cm;
+  text-align: center;
+  background-color: #ffffff;
+  color: black;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 5px;
+}
 
-  .hpWhite {
-    background-color: #ffffff !important; /* SSD */
-  }
+.hp div.interface{
+  line-height: 0.2cm;
+  text-align: center;
+  background-color: #8B008B;
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 5px;
+}
 
-  .hpNonDP {
-    background-color: #131313 !important;
-    color: #ffffff !important;
-  }
+.hp div.size{
+  line-height: 0.3cm;
+  text-align: center;
+  background-color: #000000;
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 10px;
+}
 
-  .hpSSNW {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9eb03+1,2989d8+100 */
-    background: #f9eb03; /* Old browsers */
-    background: -moz-linear-gradient(left,  #f9eb03 1%, #2989d8 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #f9eb03 1%,#2989d8 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #f9eb03 1%,#2989d8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9eb03', endColorstr='#2989d8',GradientType=1 ); /* IE6-9 */
-  }
+.hp div.serial{
+  line-height: 0.2cm;
+  text-align: center;
+  background-color: #000000;
+  color: white;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 4px;
+}
 
-  /* Vendor select screen */
-
-  table#vendors img {
-    width: 100px;
-  }
-
-  table#vendors td {
-    width: 50%;
-    text-align: center;
-  }
-
-  table#vendors img {
-    cursor: pointer;
-  }
-
-  /* Exmaple table */
-
-  table#example-table {
-    border: none;
-    border-collapse: collapse; 
-  }
-
-  table#example-table tr:not(:last-child) {
-    border-bottom: 1px solid #c5c5c5;
-  }
-
-  table#example-table td {
-    width: 2.3cm;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  table#example-table .hp,
-  table#example-table .hp-lff,
-  table#example-table .dell,
-  table#example-table .dell2 {
-      display: inline-block;
-      padding: 0px;
-      margin: 5px 0px;
-  }
-
-  /* HP Small Form Factor label styling ( SFF ) */
-  .hp {
-    width: 1.2cm;
-    height: 0.9cm;
-    margin: 0.1cm 0.1cm;
-  }
-
-  .hp div.hptext1{
-    border-top: thin solid #000000;
-    line-height: 0.2cm;
-    text-align: center;
-    background-color: #ffffff;
-    color: black;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 5px;
-  }
-
-
-  .hp div.hptext2{
-    line-height: 0.2cm;
-    text-align: center;
-    background-color: #000099;
-    color: white;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 5px;
-  }
-
-  .hp div.hptext3{
-    line-height: 0.3cm;
-    text-align: center;
-    background-color: #000000;
-    color: white;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 8px;
-    font-weight: bold;
-  }
-
-  .hp div.hptext4{
-    line-height: 0.2cm;
-    text-align: center;
-    background-color: #000000;
-    color: white;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 4px;
-  }
-
-  /* HP Large Form Factor label styling ( LFF ) */
-  .hp-lff {
-    width: 2.1cm;
-    height: 1.6cm;
-    margin: 0.1cm 0.1cm;
-  }
-
-  .hpLFF_text1 { /* Speed Label */
-    border: thin solid #000000;
-    line-height: 0.3cm;
-    text-align: center;
-    background-color: #ffffff;
-    color: black;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 6px;
-    margin: 0px 15px 0px 15px;
-  }
-
-  .hpLFF_text2 { /* Disk Type */
-    line-height: 0.46cm;
-    text-align: center;
-    background-color: #FFFFFF;
-    color: black;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 10px;
-  }
-
-  .hpLFF_text3 { /* Capacity */
-    line-height: 0.46cm;
-    text-align: center;
-    background-color: #181818;
-    color: white;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-  }
-
-  .hpLFF_text4 { /* Serial */
-    line-height: 0.3cm;
-    text-align: center;
-    background-color: #181818;
-    color: white;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 6px;
-  }
-
-  .hpLFF_divider {
-   height: 0.08cm;
-   background-color: #8b008b;
-   border: 0;
-   margin: 0px;
-   border-color: inherit;
-  }
 </style>
-<script>
-  $( function() {
-
-    var disk_type = $( "#disk_type" ),
-    capacity = $( "#capacity" ),
-    serial = $( "#serial" ),
-    vendorType = 'hp';
-
-    // First, checks if it isn't implemented yet.
-    if (!String.prototype.format) {
-      String.prototype.format = function() {
-        var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, number) { 
-          return typeof args[number] != 'undefined'
-          ? args[number]
-          : match
-          ;
-        });
-      };
-    }
-
-    function hpTypeToColor(type,speed,obj) {
-      formFactor     = $('#formFactor label.ui-checkboxradio-checked');
-
-      diskSpeedObj = obj.find('.hptext1');
-      diskTypeObj  = obj.find('.hptext2');
-      labelDivider = obj.find('.hpSFF_divider');
-        
-      if ( formFactor.attr('for') === 'LFF') { 
-        diskSpeedObj = obj.find('.hpLFF_text1');
-        diskTypeObj  = obj.find('.hpLFF_text2');
-        labelDivider = obj.find('.hpLFF_divider');
-      }
-
-      switch (true) {
-        case /^SAS$/gi.test(type):
-          labelDivider.addClass('hpPurple'); break;
-        case /^(SAS MDL|SATA|SATA MDL)$/gi.test(type):
-          labelDivider.addClass('hpCyan'); break;
-        case /^Fibre Channel$/gi.test(type):
-          labelDivider.addClass('hpOrange'); break;
-        case /^SSD$/gi.test(type):
-          labelDivider.addClass('hpWhite'); break;
-        case /SSNW/gi.test(type):
-          labelDivider.addClass('hpSSNW'); break;
-      }
-
-      if ( !/(DP|Dual|Dual Port)/.test(speed)) {
-        console.info ('This is a non DP Disk (' + type + ')');
-
-        diskSpeedObj.addClass('hpNonDP');
-      }
-      
-      if (/SSD/.test(type)) { diskTypeObj.text(String.fromCharCode(160)); }
-
-    }
-
-    function addUser() {
-      diskSpeedLabel = '';
-      diskSpeedDell  = '';
-
-      formFactor     = $('#formFactor label.ui-checkboxradio-checked');
-      interfaceType  = $('#interfaceType label.ui-checkboxradio-checked');
-      interfaceSpeed = $('#interfaceSpeed label.ui-checkboxradio-checked');
-      diskSpeed      = $('#diskSpeed label.ui-checkboxradio-checked');
-      diskType       = $('#diskType label.ui-checkboxradio-checked');
-
-      console.info ('IF: ' + interfaceType.attr('for') + ' -- IFS: ' + interfaceSpeed.attr('for') + ' -- DS:' + diskSpeed.attr('for'))
-
-      switch (interfaceSpeed.attr('for')) {
-        case 'SATA2/SAS':
-          if (/SATA/.test(diskType.attr('for' ))){
-            diskSpeedLabel = diskSpeedLabel.concat('3G ');
-          }
-          break;
-        case 'SATA3/SAS2':
-          diskSpeedLabel = diskSpeedLabel.concat('6G '); break;
-        case 'SAS3':
-          diskSpeedLabel = diskSpeedLabel.concat('12G '); break;
-        case 'SAS4':
-          diskSpeedLabel = diskSpeedLabel.concat('22G '); break;
-      }
-
-      if (interfaceType.attr('for') === 'dualPort') {
-        if (diskSpeedLabel === '') {
-          diskSpeedLabel = diskSpeedLabel.concat('Dual Port ');
-        } else {
-          diskSpeedLabel = diskSpeedLabel.concat('DP ');
-        }
-      }
-
-      if (diskSpeed.attr('for')) {
-        diskSpeedLabel = diskSpeedLabel.concat(diskSpeed.attr('for'));
-        diskSpeedDell  = diskSpeedDell.concat(diskSpeed.attr('for'));
-      }
-
-      if (/(SSD|SSNW)/i.test(diskType.attr('for'))) {
-        diskSpeedLabel = 'SATA SSD';
-      }
-
-      console.info ('Disk Speed Label : ' + diskSpeedLabel);
-
-      var valid = true;
-
-      switch (vendorType) {
-        case 'hp': 
-          switch (formFactor.attr('for')) {
-            case 'SFF':
-              labelString = "<div class='hp'><div class='hptext1'>{0}</div><div class='hptext2 hpSFF_divider'>{1}</div><div class='hptext3'>{2}</div><div class='hptext4'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
-              break;
-            case 'LFF':
-              labelString = "<div class='hp-lff'><div><p class='hpLFF_text1'>{0}</p></div><div class='hpLFF_text2'>{1}</div><hr class='hpLFF_divider'/><div class='hpLFF_text3'>{2}</div><div class='hpLFF_text4'>{3}</div></div>".format(diskSpeedLabel,diskType.text(),capacity.val(),serial.val());
-            break;
-          }
-          break;
-        case 'dell':
-          switch (formFactor.attr('for')) {
-            case 'SFF':
-              labelString = "<div class='dell2'><div id='dellType' class='dell2uppertext'>{0}</div><div class='dell2lowertext'><div id='dellCapacity'>{1}</div><div id='dellSpeed'>{2}</div></div></div>".format(diskType.text(),capacity.val(),diskSpeedDell);
-              break;
-            case 'LFF':
-              labelString = "<div class='dell'><div id='dellType' class='delluppertext'>{0}</div><div id='dellCapacity' class='delllowertext'>{1}</div></div>".format(diskType.text(),capacity.val());
-            break;
-          break;
-        }
-      }
-
-/*      valid = valid && checkLength( name, "username", 3, 16 );
-      valid = valid && checkLength( email, "email", 6, 80 );
-      valid = valid && checkLength( password, "password", 5, 16 );
- 
-      valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
-      valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
-      valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
- 
-      if ( valid ) {*/
-       
-        if ($('#users tr').length === 0 || $('#users tr:last td').length >= 6) { $( "#users tbody" ).append( '<tr>' ); }
-        $( "#users tbody tr:last" ).append('<td>' + labelString + '</td>');
-        if ($('#users tr').length === 0 || $('#users tr:last td').length >= 6) { $( "#users tbody" ).append( '</tr>' ); }
-
-        hpTypeToColor(diskType.text(),diskSpeedLabel,$( "#users tbody tr:last td:last" ));
-
-        /* Dell SSD fix */
-        if (/SSD/i.test(diskType.attr('for')) && vendorType === 'dell' && formFactor.attr('for') === 'SFF') {
-          console.info ('Dell SSD Fix');
-          $('#users td #dellSpeed').last().remove();
-          $('#users td #dellCapacity').last().css({'line-height': '0.8cm'})
-        }
-
-        if($('#addMore:checked').length === 0) {
-          dialog2.dialog( "close" );
-        }
-
-      return valid;
-    }
-
-    dialog2 = $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 400,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Add disk(s)": addUser,
-        Cancel: function() {
-          dialog2.dialog( "close" );
-        }
-      },
-      close: function() {
-        form[ 0 ].reset();
-      }
-    });
-
-    dialog = $( "#vendor-select" ).dialog({
-      autoOpen: false,
-      height: 200,
-      width: 350,
-      modal: true,
-      close: function() {
-      }
-    });
-
-
-    form = dialog2.find( "form" ).on( "submit", function( event ) {
-      event.preventDefault();
-      addUser();
-    });
-
-    $( "#create-user" ).button().on( "click", function() {
-      dialog.dialog( "open" );
-    });
-
-    $( "#print-page" ).button().on( "click", function() {
-      preparePrint();
-      window.print();
-    });
-
-    $( "#restartApp" ).button().on( "click", function() {
-      $( "#print-page" ).show();
-      $( "#create-user" ).show();
-      $( '#example').show();
-      $( '#instruction').show();
-      $( '#users tbody').html('');
-      $(this).hide();
-    }).hide();
-X
-    $('table#vendors img').click(function(e) {
-      dialog.dialog( "close" );
-      console.info($(this).attr('id') + ' Clicked!');
-      vendorType = $(this).attr('id');
-      if ($(this).attr('id') === 'dell') {
-        $('#interfaceType').hide();
-        $('#interfaceSpeed').hide();
-        $('label[for=\'SASMDL\']').hide();
-        $('label[for=\'SATAMDL\']').hide();
-        $('label[for=\'FC\']').hide();
-        $('label[for=\'SSNW\']').hide();
-      }
-      dialog2.dialog( "open" );
-    });
-
-   $('#disk_type').change(function alma() {
-      console.log ('Disk Typpe changed. New Type: ' + $(this).val());
-      if (/SSD/gi.test($(this).val())) {
-        $('#disk_speed').val('SATA SSD').prop('disabled', true).css('color', '#A0A0A0');
-      } else {
-        $('#disk_speed').prop('disabled', false).css('color', '#333333');
-      }
-    });
-
-   $('#dialog-form input:radio').checkboxradio({
-      icon: false
-    });
-   $('#addMore').checkboxradio();
-
-   $( "[name='formFactor']").on("change", function(e) {
-      var target = $( e.target );
-      var checked = target.is( ":checked" );
-
-          if (target.attr('id') === 'LFF' && checked && vendorType === 'dell') {
-            $('#diskSpeed').hide();
-          } else if ( $( "[name='diskType']:checked").attr('id') !== 'SSD' ) {
-            $('#diskSpeed').show();
-            $('[for=\'' + $('[name=\'diskSpeed\']:checked').attr('id') + '\']').addClass('ui-checkboxradio-checked ui-state-active')
-          }
-   });
-
-   $( "[name='diskType']").on("change", function(e) {
-      var target = $( e.target );
-      var checked = target.is( ":checked" );
-
-          if (target.attr('id') === 'SSD' && checked ) {
-            $('#diskSpeed').hide();
-            $('#diskSpeed label').removeClass('ui-checkboxradio-checked ui-state-active')
-          } else if ( $( "[name='formFactor']:checked").attr('id') === 'SFF' ) {
-            $('#diskSpeed').show();
-            $('[for=\'' + $('[name=\'diskSpeed\']:checked').attr('id') + '\']').addClass('ui-checkboxradio-checked ui-state-active')
-          }
-   });
-  } );
-
-  function preparePrint() {
-    $( "#print-page" ).hide();
-    $( "#create-user" ).hide();
-    $( '#example').hide();
-    $( '#instruction').hide();
-    setTimeout(function() {
-      $( '#restartApp').show();
-    },1000);
-  }
-</script>
 </head>
 <body>
-
-  <div id="top">
-    <img width="70px" height="70px" src="http://familjencohen.se/label/reddit-snoo.jpg"/>
-    Homelab caddy label maker
-  </div>
-
-  <div id='instruction'>
-    <h3>Print your own labels for drive caddies.</h3>
-    <p>Use the configurator to create the desired label(s), then click on "Print Page" to print it out. Make sure to print in the original size.</p> 
-    <p>Notes: In Safari: Select "Print Backgrounds". Firefox doesn't support CSS clip-paths, so the Dell labels lack the cut off corner.</p>
-  </div>
-
-  <div id="example" class="ui-widget">
-  Some Examples:
-  <table id="example-table" class="ui-widget ui-widget-content">
-    <tbody>
-      <tr>
-        <td>HP 2.5" SFF</td>
-        <td><div class="hp"><div class="hptext1">Dual Port 15K</div><div class="hptext2 hpSFF_divider hpPurple">SAS</div><div class="hptext3">146 GB</div><div class="hptext4">SPARE 512744-001</div></div></td>
-        <td><div class="hp"><div class="hptext1">6G DP 7.2K</div><div class="hptext2 hpSFF_divider hpCyan">SAS MDL</div><div class="hptext3">500 GB</div><div class="hptext4">SPARE 508009-001</div></div></td>
-        <td><div class="hp"><div class="hptext1 hpNonDP">6G 7.2K</div><div class="hptext2 hpSFF_divider hpCyan">SATA</div><div class="hptext3">1 TB</div><div class="hptext4">SPARE 123456-789</div></div></td>
-        <td><div class="hp"><div class="hptext1 hpNonDP">SATA SSD</div><div class="hptext2 hpSFF_divider hpWhite">&nbsp;</div><div class="hptext3">400 GB</div><div class="hptext4">SPARE 690811-002</div></div></td>
-        <td><div class="hp"><div class="hptext1">Dual Port 15K</div><div class="hptext2 hpSFF_divider hpOrange">Fibre Channel</div><div class="hptext3">1 TB</div><div class="hptext4">SPARE 123456-789</div></div></td>
-        <td><div class="hp"><div class="hptext1 hpNonDP">SATA SSD</div><div class="hptext2 hpSFF_divider hpSSNW">&nbsp;</div><div class="hptext3">1 TB</div><div class="hptext4">SPARE 123456-789</div></div></td>
-      </tr><tr>
-        <td>HP 3.5" LFF</td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1">Dual Port 15K</p></div><div class="hpLFF_text2">SAS</div><hr class="hpLFF_divider hpPurple"><div class="hpLFF_text3">1 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1">6G DP 7.2K</p></div><div class="hpLFF_text2">SAS MDL</div><hr class="hpLFF_divider hpCyan"><div class="hpLFF_text3">4 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1 hpNonDP">6G 5.4K</p></div><div class="hpLFF_text2">SATA</div><hr class="hpLFF_divider hpCyan"><div class="hpLFF_text3">3 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1 hpNonDP">SATA SSD</p></div><div class="hpLFF_text2">&nbsp;</div><hr class="hpLFF_divider hpWhite"><div class="hpLFF_text3">512 GB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1">Dual Port 15K</p></div><div class="hpLFF_text2">Fibre Channel</div><hr class="hpLFF_divider hpOrange"><div class="hpLFF_text3">1 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-        <td><div class="hp-lff"><div><p class="hpLFF_text1 hpNonDP">SATA SSD</p></div><div class="hpLFF_text2">&nbsp;</div><hr class="hpLFF_divider hpSSNW"><div class="hpLFF_text3">1 TB</div><div class="hpLFF_text4">SPARE 123456-789</div></div></td>
-      </tr>
-      <tr>
-        <td>Dell 2.5" SFF</td>
-        <td><div class="dell2"><div id="dellType" class="dell2uppertext">SAS</div><div class="dell2lowertext"><div id="dellCapacity">512 GB</div><div id="dellSpeed">15K</div></div></div></td>
-        <td><div class="dell2"><div id="dellType" class="dell2uppertext">SAS</div><div class="dell2lowertext"><div id="dellCapacity">1 TB</div><div id="dellSpeed">10K</div></div></div></td>
-        <td><div class="dell2"><div id="dellType" class="dell2uppertext">SATA</div><div class="dell2lowertext"><div id="dellCapacity">2 TB</div><div id="dellSpeed">7.2K</div></div></div></td>
-        <td><div class="dell2"><div id="dellType" class="dell2uppertext">SATA</div><div class="dell2lowertext"><div id="dellCapacity">4 TB</div><div id="dellSpeed">5.4K</div></div></div></td>
-        <td><div class="dell2"><div id="dellType" class="dell2uppertext">SSD</div><div class="dell2lowertext"><div id="dellCapacity" style="line-height: 0.8cm;">512 GB</div></div></div></td>
-        <td><div class="dell2"><div id="dellType" class="dell2uppertext">SSD</div><div class="dell2lowertext"><div id="dellCapacity" style="line-height: 0.8cm;">256 GB</div></div></div></td>
-      </tr>
-      <tr>
-        <td>Dell 3.5" LFF</td>
-        <td><div class="dell"><div id="dellType" class="delluppertext">SAS</div><div id="dellCapacity" class="delllowertext">1 TB</div></div></td>
-        <td><div class="dell"><div id="dellType" class="delluppertext">SAS</div><div id="dellCapacity" class="delllowertext">2 TB</div></div></td>
-        <td><div class="dell"><div id="dellType" class="delluppertext">SATA</div><div id="dellCapacity" class="delllowertext">4 TB</div></div></td>
-        <td><div class="dell"><div id="dellType" class="delluppertext">SATA</div><div id="dellCapacity" class="delllowertext">8 TB</div></div></td>
-        <td><div class="dell"><div id="dellType" class="delluppertext">SSD</div><div id="dellCapacity" class="delllowertext">512 GB</div></div></td>
-        <td><div class="dell"><div id="dellType" class="delluppertext">SSD</div><div id="dellCapacity" class="delllowertext">1 TB</div></div></td>
-      </tr>
-    </tbody>
-  </table>
+<div id="top" class="hide">
+<img width="70px" height="70px" src="./reddit-snoo.jpg"/>
+Homelab caddy label maker
 </div>
+<div class="hide" id="frm">
+<h3>Print your own labels for drive caddies.</h3>
+<p>Fill out the form and print the page from the browser. Make sure to print in the original size. In Safari: Select "Print Backgrounds".</p>
+<p>#initfortheblinkenlights</p>
 
-<div id="users-contain" class="ui-widget">
-  <table id="users" class="ui-widget ui-widget-content">
-    <tbody>
-    </tbody>
-  </table>
+<br/>
+
+First, Pick a base label:
+
+<script>
+    //types of labels are defined here, the key is the internal name and global class used by the css to apply to the label
+    //the fields generate inputs and divs with the supplied class
+    types = {
+        dellwide: { title : "Dell Gen11 (3.5in/2.5in) (14*8mm)", 
+                    fields: [
+                        { title: "Interface:", class:"interface", type: "text", value:"SATA" },
+                        { title: "Size/Speed:", class:"size", type: "text", value:"500GB" }
+                    ]
+        },
+        dellslim: { title : "Dell Gen11 (2.5in) (12*12mm)", 
+                    fields: [
+                        { title: "Interface:", class:"interface", type: "text", value:"SATA" },
+                        { title: "Size/Speed:", class:"size", type: "text", value:"500GB 10K" }
+                    ]
+        },
+        hp      : { title : "HP Gen 5/6/7 (12.5*9mm)", 
+                    fields: [
+                        { title: "Speed", class:"speed", type: "text", value:"Dual Port 10K" },
+                        { title: "Interface", class:"interface", type: "text", value:"SAS" },
+                        { title: "Size", class:"size", type: "text", value:"300 GB" },
+                        { title: "Serial", class:"serial", type: "text", value:"SPARE 123456-789" }
+                    ]
+        },
+    }
+    
+    //generate the type select box with the title and internal name as value
+    var typeselect = $('<select>').appendTo('#frm');
+    typeselect.append($("<option>").attr('value', undefined).text(""));
+    for (var t in types) {
+        typeselect.append($("<option>").attr('value', t).text(types[t].title));
+    }
+
+    //handler for when the selection of label type changes
+    //indirectly renders the options with default values, then draws the labels
+    var renderType = function() {
+        var type = typeselect.val()
+        renderOptions()
+        renderLabels()
+    }
+    typeselect.change(renderType)
+
+    //generate the options with the defaults defined above
+    var renderOptions = function() {
+        var t=typeselect.val() //t = type
+        var f=types[t].fields  //f = the type's options/fields
+        
+        $("#options").empty().append(types[t].title+":<br />")
+        for (prop in f) {
+            console.log(f[prop]["title"]);
+            $("#options").append(f[prop].title+': <input type="'+f[prop].type+'" class="input-'+f[prop].class+'" value="'+f[prop].value+'" oninput="renderLabels()"><br />');
+        }
+        
+        //render the inputs that control number of rows and collumns that renderLabels renders
+        //min and max options so we don't go below 1 and not over 13, experimentally proven to fill a page
+        $("#options").append('Collumns: <input type="number" id="cols" value="5" min=1 max=13 onchange="renderLabels()"><br />');
+        $("#options").append('Rows:     <input type="number" id="rows" value="2" min=1 max=20 onchange="renderLabels()"><br />');
+    }
+
+    //actually renders the labels based on the options that are set
+    var renderLabels = function() {
+        var t=typeselect.val() //selected type name
+        var f=types[t].fields  //it's option fields
+
+        $("#labels").empty()//erase the currently displayed labels, we are regenerating them from scratch
+        //generate one label, a bit ugly this way
+        var onelabel = '<td><div class="'+t+'">'
+        for (prop in f) {
+            onelabel += '<div class="'+f[prop].class+'">'+$(".input-"+f[prop].class).val()+'</div>'
+        }
+        onelabel += '</div></td>'
+        
+        //create a table row and copy labels into it
+        var row = $("<tr>")
+        for (i = 0; i < $("#cols").val(); i++) {
+            row.append(onelabel)
+        }
+        //clone the row as many times as specified
+        //if we didn't clone it would just move the row into the table multiple times and show up as 1 row
+        for (i = 0; i < $("#rows").val(); i++) {
+            $("#labels").append(row.clone())
+        }
+
+    }
+    
+    //dirty sleep function, probably hangs the tab/window :'(
+    function sleep(millis){
+        var date = new Date();
+        var curDate = null;
+        do { curDate = new Date(); }
+        while(curDate-date < millis);
+    }
+    
+    //hides elements with the hide class so we can then print a page without the ink wasting stuff on there :)
+    //after the browser generates the print version we can switch back.
+    //using a print specific css could be better but this is a fun hack
+    var hideandprint = function() {
+        $(".hide").hide()
+        sleep(200)
+        window.print()
+        sleep(100)
+        $(".hide").show()
+    }
+
+</script>
+
+<hr />
+<div id="options"></div>
+<hr/>
 </div>
-<button id="create-user">Start Configurator</button>
-<button id="print-page">Print Page</button>
-<center><button id="restartApp">Start Over</button></center>
+<table id="labels">
+</table>
+<button class="hide" onclick="hideandprint()">Print!</button>
 
-
-  <br/>
-  <br/>
-  <p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
-    <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br/>License: <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons CC BY-SA 4.0</a> Single file source. Download, improve, rehost and share with the community.</p>
-    <p>#initfortheblinkenlights</p>
-
-
-
-
-    <div id="dialog-form" title="Create new user">
-      <p class="validateTips">All form fields are required.</p>
-
-      <form>
-        <fieldset id='formFactor'>
-          <legend>Form Factor: </legend>
-          <label for="SFF">2.5" (SFF)</label>
-          <input type="radio" name="formFactor" id="SFF" checked>
-          <label for="LFF">3.5" (LFF)</label>
-          <input type="radio" name="formFactor" id="LFF">
-        </fieldset>
-        <fieldset id='interfaceType'>
-          <legend>Interface Type: </legend>
-          <label for="dualPort">Dual Port</label>
-          <input type="radio" name="interfaceType" id="dualPort">
-          <label for="singlePort">Single Port</label>
-          <input type="radio" name="interfaceType" id="singlePort" checked>
-        </fieldset>
-        <fieldset id='interfaceSpeed'>
-          <legend>Interface Speed: </legend>
-          <label for="SATA1">1.5 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SATA1">
-          <label for="SATA2/SAS">3 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SATA2/SAS">
-          <label for="SATA3/SAS2">6 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>
-          <label for="SAS3">12 Gbps</label>
-          <input type="radio" name="interfaceSpeed" id="SAS3">
-        </fieldset>
-        <fieldset id='diskSpeed'>          
-          <legend>Disk Speed: </legend>
-          <label for="5.4K">5.4K</label>
-          <input type="radio" name="diskSpeed" id="5.4K">
-          <label for="7.2K">7.2K</label>
-          <input type="radio" name="diskSpeed" id="7.2K" checked>
-          <label for="10K">10K</label>
-          <input type="radio" name="diskSpeed" id="10K">
-          <label for="15K">15K</label>
-          <input type="radio" name="diskSpeed" id="15K">
-          <label for="disk_speed">Disk Speed</label>
-        </fieldset>
-        <fieldset id='diskType'>
-          <legend>Disk Type: </legend>
-          <label for="SAS">SAS</label>
-          <input type="radio" name="diskType" id="SAS">
-          <label for="SASMDL">SAS MDL</label>
-          <input type="radio" name="diskType" id="SASMDL">
-          <label for="SATA">SATA</label>
-          <input type="radio" name="diskType" id="SATA" checked>
-          <label for="SATAMDL">SATA MDL</label>
-          <input type="radio" name="diskType" id="SATAMDL">
-          <label for="FC">Fibre Channel</label>
-          <input type="radio" name="diskType" id="FC">
-          <label for="SSD">SSD</label>
-          <input type="radio" name="diskType" id="SSD">
-          <label for="SSNW">SSD SSNW</label>
-          <input type="radio" name="diskType" id="SSNW">
-        </fieldset>
-        <fieldset id='otherProps'>          
-          <label for="capacity">Capacity</label>
-          <input type="text" name="capacity" id="capacity" value="1 TB" class="text ui-widget-content ui-corner-all">
-          <label for="serial">Serial number</label>
-          <input type="text" name="serial" id="serial" value="SPARE 123456-789" class="text ui-widget-content ui-corner-all">
-          <label for="addMore">Add More</label>
-          <input type="checkbox" name="addMore" id="addMore">
-          <!-- Allow form submission with keyboard without duplicating the dialog button -->
-          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-      </form>
-    </div>
-
-  <div id="vendor-select" class="ui-widget">
-    <h1>Choose a Disk Vendor</h1>
-    <table width='100%' id="vendors" class="ui-widget ui-widget-content">
-      <tbody>
-        <tr>
-          <td width='50%'><img id='hp' src="hpe.jpg""/></td>
-          <td width='50%'><img id='dell' src="dell.png""/></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<br/>
+<p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
+<p>Modified by /u/is4m4 because he could<p>
+<p>License: Creative Commons CC BY-SA 4.0. Single file source. Download, improve, rehost and share with the community.</p>
 
 </body>
 </html>

@@ -75,7 +75,7 @@ div.dell div.interface {
 }
 
 
-div.dell div.capacity {
+div.dell .capacity {
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;  
@@ -83,7 +83,7 @@ div.dell div.capacity {
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
-div.dell div.speed {
+div.dell .speed {
   vertical-align: bottom;
   line-height: 0.4cm;
   text-align: center;  
@@ -96,9 +96,10 @@ div.dell.slim div.speed {
   font-size: 10px;
 }
 
-div.dell.wide div.capacity,
-div.dell.wide div.speed {
-  font-size: 8px;
+div.dell.wide span.capacity,
+div.dell.wide span.speed {
+  vertical-align: super;
+  font-size: 7.5px;
 }
 
 /* HP Color Codes */

@@ -4,6 +4,7 @@ $( function() {
   capacity                = $( "#capacity" ),
   serial                  = $( "#serial" ),
   vendorType              = 'hp',
+  multiAddRunning         = 0,
 /*  interfaceSpeedSelector.parent().find('label[for=\'SATA1\']')         = $('#configuratorMain #interfaceSpeed label[for=\'SATA1\']'),
   controllerSATA2         = $('#configuratorMain #interfaceSpeed label[for=\'SATA2/SAS\']'),
   controllerSAS3          = $('#configuratorMain #interfaceSpeed label[for=\'SAS3\']'), */
@@ -152,10 +153,12 @@ $( function() {
 
     if ($('#multiplier').val() > 0) {
       var multi = $('#multiplier').val();
+      multiAddRunning = 1;
 
-      for (var i = multi -1 ; i >= 0; i--) {
+      for (var i = multi - 1 ; i >= 0; i--) {
         addUser();
       }
+      multiAddRunning = 0;
     }
 
     if($('#addMore:checked').length === 0) {

@@ -144,17 +144,17 @@
  
       if ( valid ) {*/
        
-        if ($('#users tr').length === 0 || $('#users tr:last td').length >= 6) { $( "#users tbody" ).append( '<tr>' ); }
-        $( "#users tbody tr:last" ).append('<td>' + labelString + '</td>');
-        if ($('#users tr').length === 0 || $('#users tr:last td').length >= 6) { $( "#users tbody" ).append( '</tr>' ); }
+        if ($('#printOutTable tr').length === 0 || $('#printOutTable tr:last td').length >= 6) { $( "#printOutTable tbody" ).append( '<tr>' ); }
+        $( "#printOutTable tbody tr:last" ).append('<td>' + labelString + '</td>');
+        if ($('#printOutTable tr').length === 0 || $('#printOutTable tr:last td').length >= 6) { $( "#printOutTable tbody" ).append( '</tr>' ); }
 
-        hpTypeToColor(diskType.text(),diskSpeedLabel,$( "#users tbody tr:last td:last" ));
+        hpTypeToColor(diskType.text(),diskSpeedLabel,$( "#printOutTable tbody tr td" ).last());
 
         /* Dell SSD fix */
         if (/SSD/i.test(diskType.attr('for')) && vendorType === 'dell' && formFactor.attr('for') === 'SFF') {
           console.info ('Dell SSD Fix');
-          $('#users td #dellSpeed').last().remove();
-          $('#users td #dellCapacity').last().css({'line-height': '0.8cm'})
+          $('#printOutTable td #dellSpeed').last().remove();
+          $('#printOutTable td #dellCapacity').last().css({'line-height': '0.8cm'})
         }
 
         if($('#addMore:checked').length === 0) {
@@ -192,24 +192,24 @@
 
     form = dialog2.find( "form" ).on( "submit", function( event ) {
       event.preventDefault();
-      addUser();
+     btnPrintPage;
     });
 
-    $( "#create-user" ).button().on( "click", function() {
+    $( "#btnStartConfigurator" ).button().on( "click", function() {
       dialog.dialog( "open" );
     });
 
-    $( "#print-page" ).button().on( "click", function() {
+    $( "#btnPrintPage" ).button().on( "click", function() {
       preparePrint();
       window.print();
     });
 
-    $( "#restartApp" ).button().on( "click", function() {
-      $( "#print-page" ).show();
-      $( "#create-user" ).show();
+    $( "#btnRestartApp" ).button().on( "click", function() {
+      $( "#btnPrintPage" ).show();
+      $( "#btnStartConfigurator" ).show();
       $( '#example').show();
       $( '#instruction').show();
-      $( '#users tbody').html('');
+      $( '#printOutTable tbody').html('');
       $(this).hide();
     }).hide();
 
@@ -269,12 +269,12 @@
   } );
 
   function preparePrint() {
-    $( "#print-page" ).hide();
-    $( "#create-user" ).hide();
+    $( "#btnPrintPage" ).hide();
+    $( "#btnStartConfigurator" ).hide();
     $( '#example').hide();
     $( '#instruction').hide();
     setTimeout(function() {
-      $( '#restartApp').show();
+      $( '#btnRestartApp').show();
     },1000);
   }
 </script>
@@ -335,15 +335,15 @@
   </table>
 </div>
 
-<div id="users-contain" class="ui-widget">
-  <table id="users" class="ui-widget ui-widget-content">
+<div id="printOutContainer" class="ui-widget">
+  <table id="printOutTable" class="ui-widget ui-widget-content">
     <tbody>
     </tbody>
   </table>
 </div>
-<button id="create-user">Start Configurator</button>
-<button id="print-page">Print Page</button>
-<center><button id="restartApp">Start Over</button></center>
+<button id="btnStartConfigurator">Start Configurator</button>
+<button id="btnPrintPage">Print Page</button>
+<center><button id="btnRestartApp">Start Over</button></center>
 
 
   <br/>

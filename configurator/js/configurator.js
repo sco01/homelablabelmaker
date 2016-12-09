@@ -55,11 +55,10 @@ $( function() {
       console.info($(this).attr('id') + ' Clicked!');
       vendorType = $(this).attr('id');
       if (vendorType === 'dell') {
-        diskSpeedSelector.parent().removeClass('active');
-        diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
-        interfaceTypeSelector.parent().removeClass('active');
-        interfaceTypeSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
-        serial.addClass('disabled').removeAttr('required').attr('placeholder','Not Applicable').val('');
+        disableSelector(diskSpeedSelector);
+        disableSelector(interfaceTypeSelector);
+        disableSelector(interfaceSpeedSelector);
+        serial.attr('disabled',true).removeAttr('required').attr('placeholder','Not Applicable').val('');
         ['SASMDL', 'SATAMDL', 'FC', 'SSNW'].forEach( function(s) {
           disableSelectorOption(diskTypeSelector, s);
         });
@@ -79,17 +78,15 @@ $( function() {
       console.log (diskType);
       if (/SSD/gi.test(diskType)) {
         console.info ('SSD is selected disable the disk speed option.');
-        diskSpeedSelector.parent().find('.active').removeClass('active').addClass('wasActive');
-        diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
-      } else if (diskSpeedSelector.hasClass('disabled')) {
-        diskSpeedSelector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
-        diskSpeedSelector.removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
+        disableSelector(diskSpeedSelector);
+      } else if (isSelectorDisabled(diskSpeedSelector)) {
+        enableSelector(diskSpeedSelector);
       }
 
       if (/SAS/gi.test(diskType)) {
         console.info ('SAS Disk selected disable the 1.5 Gbps speed option.');
         disableSelectorOption(interfaceSpeedSelector, 'SATA1');
-      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SATA1') ) {
+      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SATA1') && vendorType !== 'dell' ) {
         enableSelectorOption(interfaceSpeedSelector, 'SATA1');
       }
 
@@ -97,7 +94,7 @@ $( function() {
         console.info ('SATA Disk selected disable controller speeds faster than SATAIII.');
         disableSelectorOption(interfaceSpeedSelector, 'SAS3');
         disableSelectorOption(interfaceSpeedSelector, 'SAS4');
-      } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') || isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS4')) {
+      } else if ( ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') || isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS4') ) && vendorType !== 'dell') {
         enableSelectorOption(interfaceSpeedSelector, 'SAS3');
         enableSelectorOption(interfaceSpeedSelector, 'SAS4');
       }
@@ -252,16 +249,35 @@ $( function() {
 
   function resetConfigurator() {
     for (field in objectsToReset) {
-      objectsToReset[field].object.removeClass('disabled').removeClass('wasActive').removeClass('active').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
-      objectsToReset[field].object.parent().find('[for="' + objectsToReset[field].defaultField + '"]').addClass('active');
+      if (isSelectorDisabled(objectsToReset[field].object)) {
+        enableSelector(objectsToReset[field].object);
+      }
     }
     disableSelectorOption(interfaceSpeedSelector, 'SAS3');
     disableSelectorOption(interfaceSpeedSelector, 'SAS4');
-    serial.removeClass('disabled').attr('required',true).attr('placeholder','SPARE 123456-789').val('');
+    serial.removeAttr('disabled').attr('required',true).attr('placeholder','SPARE 123456-789').val('');
     $('#multiplier').val('');
     capacity.val('');
     serial.val('');
     multiAddRunning = 0;
+  }
+
+  function disableSelector (selector) {
+    selector.parent().find('.active').removeClass('active').addClass('wasActive');
+    selector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+  }
+
+  function enableSelector (selector) {
+    selector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
+    selector.removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
+  }
+
+  function isSelectorDisabled (selector) {
+    if (selector.hasClass('disabled')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function disableSelectorOption (selector, label) {

@@ -10,6 +10,8 @@
 -->
 <link rel="stylesheet" href="css/configurator.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/hpLabel.css">
+<link rel="stylesheet" href="css/dellLabel.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
 </head>
@@ -17,7 +19,7 @@
 
 <div class="container">
   <div class="row">
-  <div id="top">
+  <div id="topContainer">
       <img width="70px" height="70px" src="http://familjencohen.se/label/reddit-snoo.jpg"/>
       Homelab caddy label maker
     </div>
@@ -25,100 +27,62 @@
     <div id='instruction'>
       <h3>Print your own labels for drive caddies.</h3>
       <p>Use the configurator to create the desired label(s), then click on "Print Page" to print it out. Make sure to print in the original size.</p> 
-      <div class="alert alert-warning" role="alert">
+      <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <strong>Warning!</strong> In Safari: Select "Print Backgrounds". Firefox doesn't support CSS clip-paths, so the Dell labels lack the cut off corner.
+      </div>
+      <div class="alert alert-info alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Firefox doesn't support CSS clip-paths, so the Dell labels lack the cut off corner.
       </div>
     </div>
 
-    <div id="exampleContainer">
-      Examples:
-      <table id="exampleTable">
-        <tbody>
-        </tbody>
-      </table>
-    </div>
+    <div id='mainContainer' class='container'>
+      <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#vendorPicker" id="btnStartConfigurator">Start</button>
+      <button type="button" class="btn btn-outline-success" id="btnPrintPage">Print Page</button>
+      <button type="button" class="btn btn-outline-danger" id="btnRestartApp">Reset</button>
 
-    <div id="printOutContainer">
-      <table id="printOutTable">
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-    
-    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#vendorPicker" id="btnStartConfigurator">Start Configurator</button>
-    <button type="button" class="btn btn-outline-primary" id="btnPrintPage">Print Page</button>
-    <center><button type="button" class="btn btn-outline-primary" id="btnRestartApp">Start Over</button></center>
+      <br/>
+      <br/>
 
-    <div class="container">
-    <h3 class="text-center">Material Design Switch</h3>
-    <hr>
-    <div class="col-xs-12">
-        <p class="lead">I have been using an Android Device for the last few days and am falling in love with the switchs they use in Android. I loved them so much I wanted to port them over to Bootstrap so I could use them in future projects. I did some research and all of the ones I could find used custom colors which prevented them from working with Bootswatch or required you to edit the css files to make them match your theme. I wanted to work around that.</p>
-        <p class="lead">Please use the theme picker above to see how this snippet works with bootswatch themes. I hope you enjoy this snippet.</p>    
-    </div>
-</div>
+      <div id="exampleContainer">
+        <b>Example</b>
+        <table id="exampleTable">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">Material Design Switch Demos</div>
-            
-                <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        Bootstrap Switch Default
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionDefault" class="label-default"></label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Bootstrap Switch Primary
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Bootstrap Switch Success
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionSuccess" class="label-success"></label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Bootstrap Switch Info
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionInfo" class="label-info"></label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Bootstrap Switch Warning
-                        
-                    <li class="list-group-item">
-                        Bootstrap Switch Danger
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionDanger" class="label-danger"></label>
-                        </div>
-                    </li>
-                </ul>
-            </div>            
-        </div>
+      <div id="printOutContainer">
+        <table id="printOutTable">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
-
-    <br/>
-    <br/>
-    
-    <p>Originally created by /u/tollsjo for the /r/homelab community in December 2016<p>
-    <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>License: <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons CC BY-SA 4.0</a></p>
-    <p>#initfortheblinkenlights</p>
   </div>
-</div>
+
+</div> <!-- END OF THE MAIN CONTAINER -->
+
+<!--footer-->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+    <hr>
+      <div class="col-lg-12">
+        <div class="col-md-8">
+          Originally created by <a href="https://www.reddit.com/user/tollsjo">/u/tollsjo</a> for <a href="https://www.reddit.com/r/homelab/">/r/homelab</a> in December 2016 | #initfortheblinkenlights</div>
+        <div class="col-md-4">
+          <p class="muted pull-right"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <!-- Modal -->
 <div class="modal fade" id="vendorPicker" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -198,7 +162,7 @@
                   <input type="radio" name="interfaceSpeed" id="SAS3">12 Gb
                 </label>
                 <label for="SAS4" class="btn btn-secondary btn-sm disabled">
-                  <input type="radio" name="interfaceSpeed" id="SAS"4boo>22.5 Gb
+                  <input type="radio" name="interfaceSpeed" id="SAS4">22.5 Gb
                 </label>
               </div>
             </div>
@@ -248,17 +212,6 @@
               </div>
             </div>
           </div>
-<!--           <div class="row">
-            <div class="col-md-12">
-              <div>
-                <div class="pull-left switch-label">MDL</div>
-                <div id='diskMDLSelector' class="material-switch pull-left">
-                  <input id="diskMDL" type="checkbox">
-                  <label for="diskMDL" class="label-info disabled"></label>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="row">
             <div class="col-md-12">
               <form data-toggle="validator" class="form-inline">
@@ -297,7 +250,7 @@
         </div>
       </div> 
       <div class="modal-footer">
-        <button type="button" id='addNewDisk' class="btn btn-outline-success">Add Disk</button>
+        <button type="button" id='addNewDisk' class="btn btn-outline-success btn-sm">Add Disk(s)</button>
       </div>
     </div>
   </div>

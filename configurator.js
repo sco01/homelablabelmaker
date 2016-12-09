@@ -56,7 +56,7 @@ $( function() {
     interfaceType   = interfaceType   === false ? $('#interfaceType label.active').attr('for')  : interfaceType;
     interfaceSpeed  = interfaceSpeed  === false ? $('#interfaceSpeed label.active').attr('for') : interfaceSpeed;
     diskSpeed       = diskSpeed       === false ? $('#diskSpeed label.active').attr('for')      : diskSpeed;
-    diskType        = diskType        === false ? $('#diskType label.active').text()            : diskType;
+    diskType        = diskType        === false ? $('#diskType label.active').text().trim()     : diskType;
     diskCapacity    = diskCapacity    === false ? capacity.val()                                                  : diskCapacity;
     diskSerial      = diskSerial      === false ? serial.val()                                                    : diskSerial;
 
@@ -127,50 +127,19 @@ $( function() {
     hpTypeToColor(diskType,diskSpeedLabel,$( '#' + targetTable + ' tbody tr td' ).last());
 
     /* Dell SSD fix */
-    if (/SSD/i.test(diskType) && vendorType === 'dell' && formFactor === 'SFF') {
+    if (/SSD/i.test(diskType) && vendorType === 'dell' && formFactor === 'LFF') {
       console.info ('Dell SSD Fix');
       $('#' + targetTable + ' td .dell.LFF .speed').last().remove();
       $('#' + targetTable + ' td .dell.LFF .capacity').last().css({'line-height': '0.8cm'})
     }
 
     if($('#addMore:checked').length === 0) {
-      dialog2.dialog( "close" );
+      $('#configuratorMain').modal('hide');
     }
   }
 
-  dialog2 = $( "#dialog-form" ).dialog({
-    autoOpen: false,
-    height: 400,
-    width: 350,
-    modal: true,
-    buttons: {
-      "Add disk(s)": addUser,
-      Cancel: function() {
-        dialog2.dialog( "close" );
-      }
-    },
-    close: function() {
-      form[ 0 ].reset();
-    }
-  });
-
-  dialog = $( "#vendor-select" ).dialog({
-    autoOpen: false,
-    height: 200,
-    width: 350,
-    modal: true,
-    close: function() {
-    }
-  });
-
-
-  form = dialog2.find( "form" ).on( "submit", function( event ) {
-    event.preventDefault();
-    btnPrintPage;
-  });
-
-  $( "#btnStartConfigurator" ).button().on( "click", function() {
-    dialog.dialog( "open" );
+  $( "#addNewDisk" ).button().on( "click", function() {
+    addUser();
   });
 
   $( "#btnPrintPage" ).button().on( "click", function() {

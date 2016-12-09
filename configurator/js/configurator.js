@@ -1,9 +1,26 @@
 $( function() {
 
-  var disk_type = $( "#disk_type" ),
-  capacity = $( "#capacity" ),
-  serial = $( "#serial" ),
-  vendorType = 'hp';
+  var disk_type           = $( "#disk_type" ),
+  capacity                = $( "#capacity" ),
+  serial                  = $( "#serial" ),
+  vendorType              = 'hp',
+/*  interfaceSpeedSelector.parent().find('label[for=\'SATA1\']')         = $('#configuratorMain #interfaceSpeed label[for=\'SATA1\']'),
+  controllerSATA2         = $('#configuratorMain #interfaceSpeed label[for=\'SATA2/SAS\']'),
+  controllerSAS3          = $('#configuratorMain #interfaceSpeed label[for=\'SAS3\']'), */
+  diskSpeedSelector       = $('#configuratorMain #diskSpeed label'),
+  diskTypeSelector       = $('#configuratorMain #diskType label'),
+  interfaceTypeSelector   = $('#configuratorMain #interfaceType label'),
+  interfaceSpeedSelector  = $('#configuratorMain #interfaceSpeed label'),
+  formFactorSelector      = $('#configuratorMain #formFactor label');
+
+  var objectsToReset = [
+    { object: diskSpeedSelector, defaultField: '7.2K' },
+    { object: diskTypeSelector, defaultField: 'SATA' },
+    { object: interfaceTypeSelector, defaultField: 'singlePort' },
+    { object: interfaceSpeedSelector, defaultField: 'SATA2/SAS' },
+    { object: formFactorSelector, defaultField: 'SFF' }
+  ];
+  
 
   // First, checks if it isn't implemented yet.
   if (!String.prototype.format) {
@@ -138,8 +155,17 @@ $( function() {
     }
   }
 
+  $('#configuratorMain').validator().on('submit', function (e) {
+    if (e.isDefaultPrevented()) {
+      $(this).validator('validate');
+      console.warn ('Validation field, the user should re-check the fileds before resubmitting');
+    } else {
+      addUser();
+    }
+  });
+
   $( "#addNewDisk" ).button().on( "click", function() {
-    addUser();
+    $('#configuratorMain').submit();
   });
 
   $( "#btnPrintPage" ).button().on( "click", function() {
@@ -160,44 +186,81 @@ $( function() {
     $('#vendorPicker').modal('hide');
     console.info($(this).attr('id') + ' Clicked!');
     vendorType = $(this).attr('id');
-    if ($(this).attr('id') === 'dell') {
-      $('#interfaceType').hide();
-      $('#interfaceSpeed').hide();
-      $('label[for=\'SASMDL\']').hide();
-      $('label[for=\'SATAMDL\']').hide();
-      $('label[for=\'FC\']').hide();
-      $('label[for=\'SSNW\']').hide();
+    if (vendorType === 'dell') {
+      diskSpeedSelector.parent().removeClass('active');
+      diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+      interfaceTypeSelector.parent().removeClass('active');
+      interfaceTypeSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+      ['SASMDL', 'SATAMDL', 'FC', 'SSNW'].forEach( function(s) {
+        disableSelectorOption(diskTypeSelector, s);
+      });
     }
     $('#configuratorMain').modal('show');
+    $('#configuratorMain').validator('validate');
   });
 
-  $('#disk_type').change(function alma() {
-    console.log ('Disk Typpe changed. New Type: ' + $(this).val());
-    if (/SSD/gi.test($(this).val())) {
-      $('#disk_speed').val('SATA SSD').prop('disabled', true).css('color', '#A0A0A0');
-    } else {
-      $('#disk_speed').prop('disabled', false).css('color', '#333333');
+  function resetConfigurator() {
+    for (field in objectsToReset) {
+      objectsToReset[field].object.removeClass('disabled').removeClass('wasActive').removeClass('active').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
+      objectsToReset[field].object.parent().find('[for="' + objectsToReset[field].defaultField + '"]').addClass('active');
+    }
+    disableSelectorOption(interfaceSpeedSelector, 'SAS3');
+    capacity.val('');
+    serial.val('');
+  }
+
+  $('#configuratorMain').on('hidden.bs.modal', function () {
+    resetConfigurator();
+  });
+
+  $('#diskType label').on('change', function (){
+    var diskType = $('#diskType input:radio:checked').parent().text().trim();
+
+    console.log (diskType);
+    if (/SSD/gi.test(diskType)) {
+      console.info ('SSD is selected disable the disk speed option.');
+      diskSpeedSelector.parent().find('.active').removeClass('active').addClass('wasActive');
+      diskSpeedSelector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+    } else if (diskSpeedSelector.hasClass('disabled')) {
+      diskSpeedSelector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
+      diskSpeedSelector.removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
+    }
+
+    if (/SAS/gi.test(diskType)) {
+      console.info ('SAS Disk selected disable the 1.5 Gbps speed option.');
+      disableSelectorOption(interfaceSpeedSelector, 'SATA1');
+    } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SATA1') ) {
+      enableSelectorOption(interfaceSpeedSelector, 'SATA1');
+    }
+
+    if (/(SATA|SSD)/gi.test(diskType)) {
+      console.info ('SATA Disk selected disable controller speeds faster than SATAIII.');
+      disableSelectorOption(interfaceSpeedSelector, 'SAS3');
+    } else if ( isSelectorOptionDisabled(interfaceSpeedSelector, 'SAS3') ) {
+      enableSelectorOption(interfaceSpeedSelector, 'SAS3');
     }
   });
 
-  $('#dialog-form input:radio').checkboxradio({
-    icon: false
-  });
+  function disableSelectorOption (selector, label) {
+    var selectorOption = selector.parent().find('label[for=\'' + label + '\']');
 
-  $('#addMore').checkboxradio();
-
-  $( "[name='diskType']").on("change", function(e) {
-    var target = $( e.target );
-    var checked = target.is( ":checked" );
-
-    if (target.attr('id') === 'SSD' && checked ) {
-      $('#diskSpeed').hide();
-      $('#diskSpeed label').removeClass('ui-checkboxradio-checked ui-state-active')
-    } else {
-      $('#diskSpeed').show();
-      $('[for=\'' + $('[name=\'diskSpeed\']:checked').attr('id') + '\']').addClass('ui-checkboxradio-checked ui-state-active')
+    selectorOption.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
+    if (selectorOption.hasClass('active')) {
+      selector.parent().find('label:not(.disabled)').first().click();
     }
-  });
+  }
+
+  function enableSelectorOption (selector, label) {
+    selector.parent().find('label[for=\'' + label + '\']').removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
+  }
+
+  function isSelectorOptionDisabled (selector, label) {
+    if (selector.parent().find('label[for=\'' + label + '\']').hasClass('disabled')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function preparePrint() {
     $( "#btnPrintPage" ).hide();

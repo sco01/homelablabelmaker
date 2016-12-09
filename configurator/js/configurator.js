@@ -55,7 +55,6 @@ $( function() {
       console.info($(this).attr('id') + ' Clicked!');
       vendorType = $(this).attr('id');
       if (vendorType === 'dell') {
-        disableSelector(diskSpeedSelector);
         disableSelector(interfaceTypeSelector);
         disableSelector(interfaceSpeedSelector);
         serial.attr('disabled',true).removeAttr('required').attr('placeholder','Not Applicable').val('');
@@ -200,7 +199,7 @@ $( function() {
         console.info ('Disk Speed Dell Label : ' + diskSpeedDell);
         switch (formFactor) {
           case 'SFF':
-            labelString = "<div class='dell SFF'><div class='interface'>{0}</div><div><span class='capacity'>{1}</span> <span class='speed'>{2}</span></div></div>".format(diskType,diskCapacity,diskSpeedDell);
+            labelString = "<div class='dell SFF'><div class='interface'>{0}</div><div class='capacity speed'>{1} {2}</div></div>".format(diskType,diskCapacity,diskSpeedDell);
             break;
           case 'LFF':
             labelString = "<div class='dell LFF'><div class='interface'>{0}</div><div class='capacity'>{1}</div><div class='speed'>{2}</div></div>".format(diskType,diskCapacity,diskSpeedDell);
@@ -223,6 +222,7 @@ $( function() {
 
     if ($('#multiplier').val() > 0 && multiAddRunning !== 1) {
       var multi = $('#multiplier').val();
+      $('#multiplier').val('');
       multiAddRunning = 1;
 
       for (var i = multi - 1 ; i > 0; i--) {
@@ -249,9 +249,8 @@ $( function() {
 
   function resetConfigurator() {
     for (field in objectsToReset) {
-      if (isSelectorDisabled(objectsToReset[field].object)) {
-        enableSelector(objectsToReset[field].object);
-      }
+      disableSelector(objectsToReset[field].object);
+      enableSelector(objectsToReset[field].object,objectsToReset[field].defaultField);
     }
     disableSelectorOption(interfaceSpeedSelector, 'SAS3');
     disableSelectorOption(interfaceSpeedSelector, 'SAS4');
@@ -267,8 +266,13 @@ $( function() {
     selector.addClass('disabled').attr('aria-disabled', true).css( 'pointer-events', 'none' );
   }
 
-  function enableSelector (selector) {
-    selector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
+  function enableSelector (selector,field) {
+    if ( field !== undefined ) {
+      console.log('kurva anyad')
+      selector.parent().find('[for=\'' + field + '\']').addClass('active').removeClass('wasActive');
+    } else {
+      selector.parent().find('.wasActive').addClass('active').removeClass('wasActive');
+    }
     selector.removeClass('disabled').attr('aria-disabled', false).css( 'pointer-events', 'auto' );
   }
 

@@ -50,8 +50,8 @@ div.dell.LFF div.speed {
   font-size: 10px;
 }
 
-div.dell.SFF span.capacity,
-div.dell.SFF span.speed {
+div.dell.SFF div.capacity,
+div.dell.SFF div.speed {
   vertical-align: super;
-  font-size: 7.5px;
+  font-size: 8px;
 }

@@ -9,6 +9,7 @@
   License: Creative Commons CC BY-SA 4.0
 -->
 <link rel="stylesheet" href="css/configurator.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
 </head>
@@ -111,7 +112,7 @@
             <div class="col-md-6">
               Interface Speed:<br/>
               <div id='interfaceSpeed' class="btn-group" data-toggle="buttons">
-                <label for="SATA1" class="btn btn-secondary btn-sm">
+                <label for="SATA1" role='button' class="btn btn-secondary btn-sm">
                   <input type="radio" name="interfaceSpeed" id="SATA1">1.5 Gbps
                 </label>
                 <label for="SATA2/SAS" class="btn btn-secondary btn-sm">
@@ -120,7 +121,7 @@
                 <label for="SATA3/SAS2" class="btn btn-secondary btn-sm active">
                   <input type="radio" name="interfaceSpeed" id="SATA3/SAS2" checked>6 Gbps
                 </label>
-                <label for="SAS3" class="btn btn-secondary btn-sm">
+                <label for="SAS3" class="btn btn-secondary btn-sm disabled">
                   <input type="radio" name="interfaceSpeed" id="SAS3">12 Gbps
                 </label>
               </div>
@@ -150,20 +151,20 @@
                 <label for="SAS" class="btn btn-secondary btn-sm">
                   <input type="radio" name="diskType" id="SAS">SAS
                 </label>
-                <label for="SASMDL" class="btn btn-secondary btn-sm">
-                  <input type="radio" name="diskType" id="SASMDL">SAS MDL
-                </label>
                 <label for="SATA" class="btn btn-secondary btn-sm active">
                   <input type="radio" name="diskType" id="SATA" checked>SATA
+                </label>
+                <label for="SSD" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SSD">SSD
+                </label>
+                <label for="SASMDL" class="btn btn-secondary btn-sm">
+                  <input type="radio" name="diskType" id="SASMDL">SAS MDL
                 </label>
                 <label for="SATAMDL" class="btn btn-secondary btn-sm">
                   <input type="radio" name="diskType" id="SATAMDL">SATA MDL
                 </label>
                 <label for="FC" class="btn btn-secondary btn-sm">
                   <input type="radio" name="diskType" id="FC">Fibre Channel
-                </label>
-                <label for="SSD" class="btn btn-secondary btn-sm">
-                  <input type="radio" name="diskType" id="SSD">SSD
                 </label>
                 <label for="SSNW" class="btn btn-secondary btn-sm">
                   <input type="radio" name="diskType" id="SSNW">SSD SSNW
@@ -173,27 +174,34 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <form class="form-inline">
-                <div class="form-group">
+              <form data-toggle="validator" class="form-inline">
+                <div class="form-group has-feedback">
                   <label for="capacity">Capacity</label><br/>
-                  <input class="form-control" type="text" placeholder="1 TB" id="capacity">
+                  <div class="input-group">
+                    <input class="form-control" type="text" pattern="^[0-9]{1,5} (GB|TB)$" maxlength="8" placeholder="1 TB" id="capacity" required>
+                  </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="serial">Serial</label><br/>
-                  <input class="form-control" type="text" placeholder="SPARE 123456-789" id="serial">
+                  <div class="input-group">
+                    <input class="form-control" type="text" pattern="^[_\s\-A-z0-9]{1,}$" maxlength="18" placeholder="SPARE 123456-789" id="serial" required>
+                  </div>
                 </div>
               </form>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div id='addMoreContainer' class="checkbox checkbox-warning">
+                <input id="addMore" type="checkbox">
+                <label for="addMore">
+                    Add More
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
-        <fieldset id='otherProps'>          
-          <label for="addMore">Add More</label>
-          <input type="checkbox" name="addMore" id="addMore">
-          <!-- Allow form submission with keyboard without duplicating the dialog button -->
-          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-      </form>
-      </div>
+      </div> 
       <div class="modal-footer">
         <button type="button" id='addNewDisk' class="btn btn-outline-success">Add Disk</button>
       </div>
@@ -205,6 +213,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.8/validator.js"></script>
 <script src="js/configurator.js"></script>
 
 </body>

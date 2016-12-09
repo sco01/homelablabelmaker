@@ -52,11 +52,11 @@ $( function() {
 
     console.info (formFactor)
 
-    formFactor      = formFactor      === false ? $('#formFactor label.ui-checkboxradio-checked').attr('for')     : formFactor;
-    interfaceType   = interfaceType   === false ? $('#interfaceType label.ui-checkboxradio-checked').attr('for')  : interfaceType;
-    interfaceSpeed  = interfaceSpeed  === false ? $('#interfaceSpeed label.ui-checkboxradio-checked').attr('for') : interfaceSpeed;
-    diskSpeed       = diskSpeed       === false ? $('#diskSpeed label.ui-checkboxradio-checked').attr('for')      : diskSpeed;
-    diskType        = diskType        === false ? $('#diskType label.ui-checkboxradio-checked').text()            : diskType;
+    formFactor      = formFactor      === false ? $('#formFactor label.active').attr('for')     : formFactor;
+    interfaceType   = interfaceType   === false ? $('#interfaceType label.active').attr('for')  : interfaceType;
+    interfaceSpeed  = interfaceSpeed  === false ? $('#interfaceSpeed label.active').attr('for') : interfaceSpeed;
+    diskSpeed       = diskSpeed       === false ? $('#diskSpeed label.active').attr('for')      : diskSpeed;
+    diskType        = diskType        === false ? $('#diskType label.active').text()            : diskType;
     diskCapacity    = diskCapacity    === false ? capacity.val()                                                  : diskCapacity;
     diskSerial      = diskSerial      === false ? serial.val()                                                    : diskSerial;
 
@@ -188,7 +188,7 @@ $( function() {
   }).hide();
 
   $('table#vendors img').click(function(e) {
-    dialog.dialog( "close" );
+    $('#vendorPicker').modal('hide');
     console.info($(this).attr('id') + ' Clicked!');
     vendorType = $(this).attr('id');
     if ($(this).attr('id') === 'dell') {
@@ -199,7 +199,7 @@ $( function() {
       $('label[for=\'FC\']').hide();
       $('label[for=\'SSNW\']').hide();
     }
-    dialog2.dialog( "open" );
+    $('#configuratorMain').modal('show');
   });
 
   $('#disk_type').change(function alma() {

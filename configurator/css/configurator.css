@@ -1,0 +1,191 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+  font-family: Lato, arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.2 !important;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+}
+
+.footer .row {
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* Main Container stlye */
+
+div#mainContainer {
+  margin-top: 50px;
+  margin-bottom: 2cm;
+  text-align: center;
+  width:100%;
+  height:100%;
+}
+
+div#mainContainer table {
+  margin: 0 auto;
+  border: none;
+  border-collapse: collapse; 
+}
+
+div#mainContainer table tr:not(:last-child),
+div#mainContainer table tr:not(:last-child) {
+  border-bottom: 1px solid #c5c5c5;
+}
+
+div#mainContainer table td,
+div#mainContainer table td {
+  width: 2.3cm;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div#mainContainer table .hp,
+div#mainContainer table .dell,
+div#mainContainer table .dell2 {
+  padding: 0px;
+  margin: 5px 0px;
+}
+
+.configMainRow div.row div,
+.configMainRow div.row ul {
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Checkbox styling for the switch */
+
+.switch-label {
+  position: relative;
+  right: 15px;
+  top: -3px;
+}
+
+.material-switch > input[type="checkbox"] {
+  display: none;   
+}
+
+.material-switch > label {
+  cursor: pointer;
+  height: 0px;
+  position: relative; 
+  width: 40px;  
+}
+
+.material-switch > label::before {
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  content: '';
+  height: 16px;
+  margin-top: -8px;
+  position:absolute;
+  opacity: 0.3;
+  transition: all 0.4s ease-in-out;
+  width: 40px;
+  right: 0px;
+}
+.material-switch > label::after {
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 24px;
+  left: -4px;
+  margin-top: -8px;
+  position: absolute;
+  top: -4px;
+  transition: all 0.3s ease-in-out;
+  width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+  background: inherit;
+  opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+  background: inherit;
+  left: 20px;
+}
+
+.label-primary  {
+  background-color: #428bca;
+}
+.label-danger {
+  background-color: #d9534f;
+}
+.label-info {
+  background-color: #5bc0de;
+}
+.label-warning {
+  background-color: #f0ad4e;
+}
+.label-success {
+  background-color: #5cb85c;
+}
+
+/* End Checkbox */
+
+@media screen {
+  .btn.disabled, .btn:disabled { opacity: 0.4 !important; }
+}
+
+@media screen and (min-width: 700px) {
+  #configuratorMain .modal-dialog  {width:650px;}
+}
+
+#topContainer {
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 0;
+  background-color:#30333A;
+  top: 0;
+  left: 0;
+  color: white;
+  font-family: Lato, arial, sans-serif;
+  font-size: 42px;
+  text-align: center;
+}
+  
+
+
+/* Vendor select screen */
+
+table#vendors img {
+  width: 180px;
+}
+
+table#vendors td {
+  width: 50%;
+  text-align: center;
+}
+
+table#vendors img {
+  cursor: pointer;
+}

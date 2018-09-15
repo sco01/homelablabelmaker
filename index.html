@@ -126,6 +126,23 @@ div.dellslim div.size{
   font-size: 4px;
 }
 
+/*  Supermicro (3.5in) (27*4mm)*/
+
+div.smwide {
+  width: 2.7cm;
+  height: 0.4cm;
+  background: #E0E0E0;
+}
+
+div.smwide div.interface{
+  line-height: 0.4cm;
+  text-align: center;
+  color: black;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+
 </style>
 </head>
 <body>
@@ -164,6 +181,11 @@ First, Pick a base label:
                         { title: "Interface", class:"interface", type: "text", value:"SAS" },
                         { title: "Size", class:"size", type: "text", value:"300 GB" },
                         { title: "Serial", class:"serial", type: "text", value:"SPARE 123456-789" }
+                    ]
+        },
+        smwide: { title : "Supermicro (3.5in) (27*5mm)",
+                    fields: [
+                        { title: "Interface/Size/Speed:", class:"interface", type: "text", value:"SAS 500GB 10K" }
                     ]
         },
     }
